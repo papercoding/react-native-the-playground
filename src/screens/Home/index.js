@@ -16,4 +16,11 @@ class HomeScreen extends Component {
   }
 }
 
+HomeScreen.navigationOptions = () => {
+  return {
+    title: ' ',
+    header: null,
+  };
+};
+
 export default HomeScreen;

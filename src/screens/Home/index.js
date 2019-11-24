@@ -1,26 +1,33 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, Button} from 'react-native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+import {SCREEN_STACK_ROUTE_NAME} from '../App';
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Home',
-    tabBarButtonComponent: TouchableBounce,
+    title: '',
+    header: null,
   };
+
+  onGoToDemoButtonPress = () => {
+    this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Demo);
+  };
+
   render() {
     return (
-      <View>
-        <Text>{'Home'}</Text>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <Button title="Go to Demo" onPress={this.onGoToDemoButtonPress} />
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
-HomeScreen.navigationOptions = () => {
-  return {
-    title: ' ',
-    header: null,
-  };
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default HomeScreen;

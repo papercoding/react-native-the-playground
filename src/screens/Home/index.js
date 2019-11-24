@@ -16,7 +16,8 @@ class HomeScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View>
+        <View style={{alignItems: 'center'}}>
+          <Text style={styles.welcome}>{'Welcome to my App'}</Text>
           <Button title="Go to Demo" onPress={this.onGoToDemoButtonPress} />
         </View>
       </SafeAreaView>
@@ -27,6 +28,10 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  welcome: {
+    fontFamily: 'BeautifulHeart',
+    fontSize: 40,
   },
 });
 

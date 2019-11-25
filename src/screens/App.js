@@ -8,10 +8,11 @@ import TouchableBounce from 'react-native/Libraries/Components/Touchable/Touchab
 
 import HomeScreen from './Home';
 import SettingsScreen from './Settings';
-import {colors} from '../themes';
 import NotificationsScreen from './Notifications';
 import DemoScreen from './Demo';
 import DemoModal from './Modals/DemoModal';
+import {AppContextProvider} from '../Hocs/AppContextProvider';
+import MyCustomBottomTabBar from '../components/MyCustomBottomTabBar';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -88,13 +89,8 @@ const MainAppBottomTab = createBottomTabNavigator(
   {
     initialRouteName: BOTTOM_TAB_ROUTE_NAME.HomeTab,
     tabBarOptions: {
-      activeTintColor: colors.highlight,
-      inactiveTintColor: '#fafafa',
       showLabel: SHOW_TAB_BAR_LABEL,
       labelStyle: {fontSize: 12},
-      style: {
-        backgroundColor: colors.primary,
-      },
     },
     defaultNavigationOptions: ({navigation}) => ({
       tabBarIcon: ({tintColor}) => {
@@ -111,6 +107,7 @@ const MainAppBottomTab = createBottomTabNavigator(
         }
       },
     }),
+    tabBarComponent: props => <MyCustomBottomTabBar {...props} />,
   },
 );
 
@@ -130,9 +127,11 @@ const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
   return (
-    <View style={{flex: 1}}>
-      <Navigation />
-    </View>
+    <AppContextProvider>
+      <View style={{flex: 1}}>
+        <Navigation />
+      </View>
+    </AppContextProvider>
   );
 };
 

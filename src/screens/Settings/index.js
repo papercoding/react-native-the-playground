@@ -1,17 +1,42 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+import {View, Button} from 'react-native';
+import SafeAreaView from 'react-native-safe-area-view';
 
-export class SettingsScreen extends Component {
+import {AppConsumer} from '../../Hocs/AppContextProvider';
+import DynamicThemeButton from './DynamicThemeButton';
+import {LightMode, DarkMode} from '../../themes';
+
+class SettingsScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Settings',
-    tabBarButtonComponent: TouchableBounce,
+    header: null,
   };
   render() {
     return (
-      <View>
-        <Text>{'Setting'}</Text>
-      </View>
+      <AppConsumer>
+        {appConsumer => (
+          <SafeAreaView
+            style={{
+              flex: 1,
+              backgroundColor: appConsumer.theme.colors.background,
+            }}>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <Button
+                title="Light Mode"
+                onPress={() => {
+                  appConsumer.updateTheme(LightMode);
+                }}
+              />
+              <Button
+                title="Dark Mode"
+                onPress={() => {
+                  appConsumer.updateTheme(DarkMode);
+                }}
+              />
+              <DynamicThemeButton />
+            </View>
+          </SafeAreaView>
+        )}
+      </AppConsumer>
     );
   }
 }

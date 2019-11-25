@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, View, SafeAreaView, StyleSheet, Button} from 'react-native';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {SCREEN_STACK_ROUTE_NAME} from '../App';
 
 class HomeScreen extends Component {

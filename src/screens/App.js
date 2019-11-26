@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -11,8 +11,11 @@ import SettingsScreen from './Settings';
 import NotificationsScreen from './Notifications';
 import DemoScreen from './Demo';
 import DemoModal from './Modals/DemoModal';
-import {AppContextProvider} from '../Hocs/AppContextProvider';
-import MyCustomBottomTabBar from '../components/MyCustomBottomTabBar';
+import {AppContextProvider, AppConsumer} from '../Hocs/AppContextProvider';
+import MyCustomBottomTabBar from '../components/BottomTabBar/MyCustomBottomTabBar';
+import DemoSizeMattersHome from './Demo/SizeMatters/DemoSizeMattersHome';
+import DemoSizeMattersChat from './Demo/SizeMatters/DemoSizeMattersChat';
+import DemoSizeMattersFeed from './Demo/SizeMatters/DemoSizeMattersFeed';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -21,6 +24,9 @@ export const SCREEN_STACK_ROUTE_NAME = {
   Notifications: 'Notifications',
   Settings: 'Settings',
   Demo: 'Demo',
+  DemoSizeMattersHome: 'DemoSizeMattersHome',
+  DemoSizeMattersChat: 'DemoSizeMattersChat',
+  DemoSizeMattersFeed: 'DemoSizeMattersFeed',
 };
 
 export const BOTTOM_TAB_ROUTE_NAME = {
@@ -37,10 +43,29 @@ const HomeStackNavigator = createStackNavigator(
   {
     [SCREEN_STACK_ROUTE_NAME.Home]: {screen: HomeScreen},
     [SCREEN_STACK_ROUTE_NAME.Demo]: {screen: DemoScreen},
+    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersHome]: {
+      screen: DemoSizeMattersHome,
+    },
+    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersChat]: {
+      screen: DemoSizeMattersChat,
+    },
+    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersFeed]: {
+      screen: DemoSizeMattersFeed,
+    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,
     headerMode: 'screen',
+    defaultNavigationOptions: ({screenProps}) => {
+      const {theme} = screenProps;
+      return {
+        headerBackTitle: null,
+        headerTintColor: theme.colors.activeBottomTabBar,
+        headerStyle: {
+          backgroundColor: theme.colors.bottomTabBar,
+        },
+      };
+    },
   },
 );
 
@@ -50,6 +75,16 @@ const NotificationsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Notifications,
+    defaultNavigationOptions: ({screenProps}) => {
+      const {theme} = screenProps;
+      return {
+        headerBackTitle: null,
+        headerTintColor: theme.colors.activeBottomTabBar,
+        headerStyle: {
+          backgroundColor: theme.colors.bottomTabBar,
+        },
+      };
+    },
   },
 );
 
@@ -59,6 +94,16 @@ const SettingsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Settings,
+    defaultNavigationOptions: ({screenProps}) => {
+      const {theme} = screenProps;
+      return {
+        headerBackTitle: null,
+        headerTintColor: theme.colors.activeBottomTabBar,
+        headerStyle: {
+          backgroundColor: theme.colors.bottomTabBar,
+        },
+      };
+    },
   },
 );
 
@@ -128,9 +173,18 @@ const Navigation = createAppContainer(RootNavigator);
 const App = () => {
   return (
     <AppContextProvider>
-      <View style={{flex: 1}}>
-        <Navigation />
-      </View>
+      <AppConsumer>
+        {appConsumer => (
+          <View style={{flex: 1}}>
+            <StatusBar
+              barStyle={
+                appConsumer.theme.dark ? 'light-content' : 'dark-content'
+              }
+            />
+            <Navigation screenProps={{theme: appConsumer.theme}} />
+          </View>
+        )}
+      </AppConsumer>
     </AppContextProvider>
   );
 };

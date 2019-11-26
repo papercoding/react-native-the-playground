@@ -8,7 +8,7 @@ import {LightMode, DarkMode} from '../../themes';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
-    header: null,
+    title: 'Settings',
   };
   render() {
     return (

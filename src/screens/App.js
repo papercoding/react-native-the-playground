@@ -56,13 +56,14 @@ const HomeStackNavigator = createStackNavigator(
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,
     headerMode: 'screen',
+    headerLayoutPreset: 'center',
     defaultNavigationOptions: ({screenProps}) => {
       const {theme} = screenProps;
       return {
         headerBackTitle: null,
-        headerTintColor: theme.colors.activeBottomTabBar,
+        headerTintColor: theme.colors.headerBarTintColor,
         headerStyle: {
-          backgroundColor: theme.colors.bottomTabBar,
+          backgroundColor: theme.colors.headerBar,
         },
       };
     },
@@ -75,13 +76,15 @@ const NotificationsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Notifications,
+    headerMode: 'screen',
+    headerLayoutPreset: 'center',
     defaultNavigationOptions: ({screenProps}) => {
       const {theme} = screenProps;
       return {
         headerBackTitle: null,
-        headerTintColor: theme.colors.activeBottomTabBar,
+        headerTintColor: theme.colors.headerBarTintColor,
         headerStyle: {
-          backgroundColor: theme.colors.bottomTabBar,
+          backgroundColor: theme.colors.headerBar,
         },
       };
     },
@@ -94,13 +97,15 @@ const SettingsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Settings,
+    headerMode: 'screen',
+    headerLayoutPreset: 'center',
     defaultNavigationOptions: ({screenProps}) => {
       const {theme} = screenProps;
       return {
         headerBackTitle: null,
-        headerTintColor: theme.colors.activeBottomTabBar,
+        headerTintColor: theme.colors.headerBarTintColor,
         headerStyle: {
-          backgroundColor: theme.colors.bottomTabBar,
+          backgroundColor: theme.colors.headerBar,
         },
       };
     },
@@ -180,6 +185,7 @@ const App = () => {
               barStyle={
                 appConsumer.theme.dark ? 'light-content' : 'dark-content'
               }
+              backgroundColor={appConsumer.theme.colors.defaultStatusBar}
             />
             <Navigation screenProps={{theme: appConsumer.theme}} />
           </View>

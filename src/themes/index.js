@@ -6,22 +6,33 @@ export const DarkMode = {
   ...DefaultTheme,
   dark: true,
   colors: {
-    ...DefaultTheme.colors,
-    primary: '#B28BF5',
-    onPrimary: '#BB94F8',
+    // primary
+    primary: '#ffa259',
+    primaryLight: '#ffd488',
+    primaryDark: '#c8732c',
+    onPrimary: '#ffffff',
+    // secondary
     secondary: '#62D7C6',
-    onSecondary: '#121212',
-    background: '#121212',
-    onBackground: '#FFFFFF',
+    onSecondary: '#212121',
+    // background
+    background: '#212121',
+    onBackground: '#ffffff',
+    // surface
     surface: '#323232',
-    onSurface: '#FFFFFF',
+    onSurface: '#ffffff',
+    // bottom tab bar
+    bottomTabBar: '#484848',
+    activeBottomTabBar: '#ffa259',
+    inactiveBottomTabBar: '#ffffff',
+    // header bar
+    headerBar: '#484848',
+    headerBarTintColor: '#ffffff',
+    // others
     disabled: '',
     placeholder: '',
     backdrop: '',
-    bottomTabBar: '#323232',
-    activeBottomTabBar: '#FFFFFF',
-    inactiveBottomTabBar: '#6b778d',
-    text: '#FFFFFF',
+    defaultStatusBar: '#000000',
+    text: '#ffffff',
   },
 };
 
@@ -44,6 +55,7 @@ export const LightMode = {
     bottomTabBar: '#5723E5',
     activeBottomTabBar: '#FFFFFF',
     inactiveBottomTabBar: '#B18EF2',
+    defaultStatusBar: '#5723E5',
     text: '#000000',
   },
 };

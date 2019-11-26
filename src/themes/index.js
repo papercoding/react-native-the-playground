@@ -1,9 +1,10 @@
-import {Platform, Dimensions} from 'react-native';
-import {DefaultTheme} from 'react-native-paper';
+import {Platform, Dimensions, StyleSheet} from 'react-native';
+import {DefaultTheme, shadow} from 'react-native-paper';
+import {scale} from 'react-native-size-matters';
 
 export const DarkMode = {
   ...DefaultTheme,
-  dark: false,
+  dark: true,
   colors: {
     ...DefaultTheme.colors,
     primary: '#B28BF5',
@@ -11,7 +12,7 @@ export const DarkMode = {
     secondary: '#62D7C6',
     onSecondary: '#121212',
     background: '#121212',
-    onBackground: '',
+    onBackground: '#FFFFFF',
     surface: '#323232',
     onSurface: '#FFFFFF',
     disabled: '',
@@ -20,13 +21,13 @@ export const DarkMode = {
     bottomTabBar: '#323232',
     activeBottomTabBar: '#FFFFFF',
     inactiveBottomTabBar: '#6b778d',
+    text: '#FFFFFF',
   },
 };
 
 export const LightMode = {
   ...DefaultTheme,
-  dark: true,
-  mode: 'exact',
+  dark: false,
   colors: {
     ...DefaultTheme.colors,
     primary: '#5723E5',
@@ -42,16 +43,53 @@ export const LightMode = {
     backdrop: '',
     bottomTabBar: '#5723E5',
     activeBottomTabBar: '#FFFFFF',
-    inactiveBottomTabBar: '#6b778d',
+    inactiveBottomTabBar: '#B18EF2',
+    text: '#000000',
   },
 };
+
+export const spacing = {
+  tiny: scale(5),
+  mini: scale(10),
+  small: scale(15),
+  normal: scale(20),
+  big: scale(36),
+};
+
+/**
+ * Get consistent shadows between iOS and Android
+ * @see https://stenbeck.io/styling-shadows-in-react-native-ios-and-android/
+ */
+export function elevationShadowStyle(elevation, position = 'bottom') {
+  return {
+    elevation,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: scale((position === 'bottom' ? 1 : -1) * elevation),
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: scale(0.8 * elevation),
+  };
+}
 
 // const logo = require('./assets/logo.jpg');
 // const logoLight = require('./assets/logoLight.png');
 
-const dimensions = Dimensions.get('window');
+export const dimensions = Dimensions.get('window');
 
-const typography = {
+export const SCREEN_WIDTH = dimensions.width;
+export const SCREEN_HEIGHT = dimensions.height;
+
+export const commonStyles = StyleSheet.create({
+  fullScreen: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+});
+
+export const typography = {
   primary: Platform.select({
     ios: 'Gotham Rounded',
     android: 'gothamrounded',
@@ -61,6 +99,3 @@ const typography = {
     android: 'gothamrounded',
   }),
 };
-
-// export {colors, typography, dimensions, logo, logoLight};
-export {typography, dimensions};

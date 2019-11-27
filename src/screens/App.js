@@ -1,11 +1,17 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+
 import {View, StatusBar} from 'react-native';
+
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-import {Provider} from 'react-redux';
+
+import {store, persistor} from '../redux/store';
 
 import HomeScreen from './Home';
 import SettingsScreen from './Settings';
@@ -17,7 +23,6 @@ import MyCustomBottomTabBar from '../components/BottomTabBar/MyCustomBottomTabBa
 import DemoSizeMattersHome from './Demo/SizeMatters/DemoSizeMattersHome';
 import DemoSizeMattersChat from './Demo/SizeMatters/DemoSizeMattersChat';
 import DemoSizeMattersFeed from './Demo/SizeMatters/DemoSizeMattersFeed';
-import store from '../redux/store';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -180,21 +185,23 @@ const Navigation = createAppContainer(RootNavigator);
 const App = () => {
   return (
     <Provider store={store}>
-      <AppContextProvider>
-        <AppConsumer>
-          {appConsumer => (
-            <View style={{flex: 1}}>
-              <StatusBar
-                barStyle={
-                  appConsumer.theme.dark ? 'light-content' : 'dark-content'
-                }
-                backgroundColor={appConsumer.theme.colors.defaultStatusBar}
-              />
-              <Navigation screenProps={{theme: appConsumer.theme}} />
-            </View>
-          )}
-        </AppConsumer>
-      </AppContextProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppContextProvider>
+          <AppConsumer>
+            {appConsumer => (
+              <View style={{flex: 1}}>
+                <StatusBar
+                  barStyle={
+                    appConsumer.theme.dark ? 'light-content' : 'dark-content'
+                  }
+                  backgroundColor={appConsumer.theme.colors.defaultStatusBar}
+                />
+                <Navigation screenProps={{theme: appConsumer.theme}} />
+              </View>
+            )}
+          </AppConsumer>
+        </AppContextProvider>
+      </PersistGate>
     </Provider>
   );
 };

@@ -1,23 +1,35 @@
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import {persistReducer, persistStore} from 'redux-persist';
+import thunk from 'redux-thunk';
+
 import Reactotron from 'reactotron-react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import * as rootReducer from '../reducers';
-import {addTodo, completeTodo} from '../actions';
-import {getVisibleTodos} from '../selectors';
 
 const combinedReducer = combineReducers(rootReducer);
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  // Whitelist (Save specific reducers)
+  whitelist: ['todos'],
+  // Blacklist (Don't save specific reducers)
+  blacklist: [],
+};
 
-let store = createStore(combinedReducer, Reactotron.createEnhancer());
+const persistedReducer = persistReducer(persistConfig, combinedReducer);
+
+let store = createStore(
+  persistedReducer,
+  compose(
+    applyMiddleware(thunk),
+    Reactotron.createEnhancer(),
+  ),
+);
+let persistor = persistStore(store);
 
 store.subscribe(() => {
-  console.tron.log('Store:', store.getState());
-  console.tron.log('Test reselect: ', getVisibleTodos(store.getState()));
+  console.tron.log('Subscribe Store:', store.getState());
 });
 
-store.dispatch(addTodo('Setup Redux'));
-store.dispatch(addTodo('Go to gym at 5:00 PM'));
-
-setTimeout(() => {
-  store.dispatch(completeTodo(0));
-}, 2000);
-
-export default store;
+export {store, persistor};

@@ -2,9 +2,14 @@ import Reactotron from 'reactotron-react-native';
 import {reactotronRedux as reduxPlugin} from 'reactotron-redux';
 import DeviceInfo from 'react-native-device-info';
 import {NativeModules} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {APP_NAME} from '../constants';
 import {appConfigs} from './Configs';
+
+console.disableYellowBox = true;
+
+Reactotron.setAsyncStorageHandler(AsyncStorage);
 
 if (DeviceInfo.isEmulatorSync()) {
   Reactotron.configure({
@@ -20,8 +25,9 @@ if (DeviceInfo.isEmulatorSync()) {
   });
 }
 
-Reactotron.useReactNative();
-
+Reactotron.useReactNative({
+  asyncStorage: {ignore: ['secret']}, // ignore key
+});
 // add some more plugins for redux & redux-saga
 Reactotron.use(reduxPlugin());
 

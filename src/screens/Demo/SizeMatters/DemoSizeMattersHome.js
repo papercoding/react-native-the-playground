@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import withScaledSheetSwitch from './behaviors/withScaledSheetSwitch';
-import {SCREEN_STACK_ROUTE_NAME} from '../../App';
+import {SCREEN_STACK_ROUTE_NAME} from '../../../App';
 
 const scaledStyles = ScaledSheet.create({
   container: {

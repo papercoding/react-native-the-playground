@@ -1,32 +1,44 @@
 import React, {Component} from 'react';
-import {Text, View, SafeAreaView, StyleSheet, Button} from 'react-native';
+import {Text, View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import {withTheme} from 'react-native-paper';
+import NetInfo from '@react-native-community/netinfo';
 
-import {SCREEN_STACK_ROUTE_NAME} from '../App';
 import Container from '../../components/Container';
+import AppClient from '../../networkings/AppClient';
+import CustomText from '../../components/CustomText';
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    title: '',
-    header: null,
+    title: 'The Playground',
   };
 
-  onGoToDemoButtonPress = () => {
-    this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Demo);
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
+
+  componentDidMount() {
+    const startRequest = () => {
+      this.setState({loading: true});
+    };
+    const endRequest = () => {
+      this.setState({loading: false});
+    };
+    AppClient.getCurrentWeatherByCityName('London', startRequest, endRequest)
+      .then(response => {
+        console.tron.log('Home - AAAAAA: ', response);
+      })
+      .catch(error => {
+        console.tron.log('Home - BBBBB: ', error);
+      });
+  }
 
   render() {
-    const {colors} = this.props.theme;
     return (
       <Container>
-        <SafeAreaView style={[styles.container]}>
-          <View style={{alignItems: 'center'}}>
-            <Text style={[styles.welcome, {color: colors.text}]}>
-              {'Welcome to my App'}
-            </Text>
-            <Button title="Go to Demo" onPress={this.onGoToDemoButtonPress} />
-          </View>
-        </SafeAreaView>
+        <View style={{flex: 1, alignItems: 'center'}}></View>
       </Container>
     );
   }
@@ -35,10 +47,6 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  welcome: {
-    fontFamily: 'BeautifulHeart',
-    fontSize: 40,
   },
 });
 

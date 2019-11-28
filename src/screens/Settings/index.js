@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Button} from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
 
+import Container from '../../components/Container';
 import {AppConsumer} from '../../Hocs/AppContextProvider';
 import DynamicThemeButton from './DynamicThemeButton';
 import {LightMode, DarkMode} from '../../themes';
@@ -14,7 +14,7 @@ class SettingsScreen extends Component {
     return (
       <AppConsumer>
         {appConsumer => (
-          <SafeAreaView
+          <Container
             style={{
               flex: 1,
               backgroundColor: appConsumer.theme.colors.background,
@@ -34,7 +34,7 @@ class SettingsScreen extends Component {
               />
               <DynamicThemeButton />
             </View>
-          </SafeAreaView>
+          </Container>
         )}
       </AppConsumer>
     );

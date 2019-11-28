@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, Button} from 'react-native';
-import {MODAL_ROUTE_NAME, SCREEN_STACK_ROUTE_NAME} from '../App';
+import {MODAL_ROUTE_NAME, SCREEN_STACK_ROUTE_NAME} from '../../App';
 
 export class DemoScreen extends Component {
   static navigationOptions = {
@@ -19,10 +19,7 @@ export class DemoScreen extends Component {
     return (
       <View>
         <Button title="Open Demo Modal" onPress={this.onOpenDemoModalPress} />
-        <Button
-          title="Open Demo Size Matters"
-          onPress={this.onOpenDemoSizeMatters}
-        />
+        <Button title="Open Demo Size Matters" onPress={this.onOpenDemoSizeMatters} />
       </View>
     );
   }

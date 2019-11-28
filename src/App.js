@@ -8,8 +8,6 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
-import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
-
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
@@ -26,7 +24,7 @@ import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome'
 import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';
 import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
 import DropdownAlert from 'react-native-dropdownalert';
-import useDebounce from './Hooks/use-debounce';
+import useNetworkState from './Hooks/useNetworkState';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -187,36 +185,27 @@ const RootNavigator = createStackNavigator(
 const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
-  const [skipTheFirstTime, setSkipTheFirstTime] = useState(true);
-  const [currentNetInfo, setCurrentNetInfo] = useState(undefined);
-  const netInfo = useNetInfo();
-
-  const debouncedCurrentNetInfo = useDebounce(currentNetInfo, 500);
+  const [canShowAlertNetworkChange, setCanShowAlertNetworkChange] = useState(false);
+  const isConnected = useNetworkState();
 
   useEffect(() => {
-    if (skipTheFirstTime) {
-      setTimeout(() => {
-        setSkipTheFirstTime(false);
-      }, 4000);
+    setTimeout(() => {
+      setCanShowAlertNetworkChange(true);
+    }, 1000);
+  }, [canShowAlertNetworkChange]);
+
+  useEffect(() => {
+    if (isConnected === null) {
+      return;
     }
-  }, [skipTheFirstTime]);
 
-  useEffect(() => {
-    setCurrentNetInfo(netInfo);
-  }, [netInfo]);
-
-  useEffect(() => {
-    if (currentNetInfo) {
-      if (currentNetInfo.isConnected) {
-        if (!skipTheFirstTime) {
-          this.dropDownAlertRef.alertWithType('success', 'Connected');
-        }
-      } else {
-        this.dropDownAlertRef.alertWithType('error', 'No Internet');
-      }
+    if (isConnected && canShowAlertNetworkChange) {
+      this.dropDownAlertRef.alertWithType('success', 'Connected');
+    } else if (!isConnected) {
+      this.dropDownAlertRef.alertWithType('error', 'No Internet Connection');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedCurrentNetInfo]);
+  }, [isConnected]);
 
   return (
     <Provider store={store}>

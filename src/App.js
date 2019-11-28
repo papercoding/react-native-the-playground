@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -8,21 +8,25 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
+import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
+
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-import {store, persistor} from '../redux/store';
+import {store, persistor} from './redux/store';
 
-import HomeScreen from './Home';
-import SettingsScreen from './Settings';
-import NotificationsScreen from './Notifications';
-import DemoScreen from './Demo';
-import DemoModal from './Modals/DemoModal';
-import {AppContextProvider, AppConsumer} from '../Hocs/AppContextProvider';
-import MyCustomBottomTabBar from '../components/BottomTabBar/MyCustomBottomTabBar';
-import DemoSizeMattersHome from './Demo/SizeMatters/DemoSizeMattersHome';
-import DemoSizeMattersChat from './Demo/SizeMatters/DemoSizeMattersChat';
-import DemoSizeMattersFeed from './Demo/SizeMatters/DemoSizeMattersFeed';
+import HomeScreen from './screens/Home';
+import SettingsScreen from './screens/Settings';
+import NotificationsScreen from './screens/Notifications';
+import DemoScreen from './screens/Demo';
+import DemoModal from './screens/Modals/DemoModal';
+import {AppContextProvider, AppConsumer} from './Hocs/AppContextProvider';
+import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar';
+import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome';
+import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';
+import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
+import DropdownAlert from 'react-native-dropdownalert';
+import useDebounce from './Hooks/use-debounce';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -183,6 +187,37 @@ const RootNavigator = createStackNavigator(
 const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
+  const [skipTheFirstTime, setSkipTheFirstTime] = useState(true);
+  const [currentNetInfo, setCurrentNetInfo] = useState(undefined);
+  const netInfo = useNetInfo();
+
+  const debouncedCurrentNetInfo = useDebounce(currentNetInfo, 500);
+
+  useEffect(() => {
+    if (skipTheFirstTime) {
+      setTimeout(() => {
+        setSkipTheFirstTime(false);
+      }, 4000);
+    }
+  }, [skipTheFirstTime]);
+
+  useEffect(() => {
+    setCurrentNetInfo(netInfo);
+  }, [netInfo]);
+
+  useEffect(() => {
+    if (currentNetInfo) {
+      if (currentNetInfo.isConnected) {
+        if (!skipTheFirstTime) {
+          this.dropDownAlertRef.alertWithType('success', 'Connected');
+        }
+      } else {
+        this.dropDownAlertRef.alertWithType('error', 'No Internet');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedCurrentNetInfo]);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -191,12 +226,11 @@ const App = () => {
             {appConsumer => (
               <View style={{flex: 1}}>
                 <StatusBar
-                  barStyle={
-                    appConsumer.theme.dark ? 'light-content' : 'dark-content'
-                  }
+                  barStyle={appConsumer.theme.dark ? 'light-content' : 'dark-content'}
                   backgroundColor={appConsumer.theme.colors.defaultStatusBar}
                 />
                 <Navigation screenProps={{theme: appConsumer.theme}} />
+                <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} useNativeDriver />
               </View>
             )}
           </AppConsumer>

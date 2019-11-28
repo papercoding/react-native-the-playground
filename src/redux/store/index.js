@@ -21,10 +21,7 @@ const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
 let store = createStore(
   persistedReducer,
-  compose(
-    applyMiddleware(thunk),
-    Reactotron.createEnhancer(),
-  ),
+  compose(applyMiddleware(thunk), Reactotron.createEnhancer()),
 );
 let persistor = persistStore(store);
 

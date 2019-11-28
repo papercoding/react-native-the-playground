@@ -47,8 +47,8 @@ class AppClient {
           resolve(json);
         })
         .catch(error => {
-          console.tron.log('sendFetchRequest -> Error: ', error, error.message, error.errorCode);
-          reject(Error(error.message));
+          console.tron.log('sendFetchRequest -> Error: ', error, error.message);
+          reject(error);
         })
         .finally(endRequest());
     });

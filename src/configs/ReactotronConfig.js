@@ -20,7 +20,6 @@ if (DeviceInfo.isEmulatorSync()) {
   Reactotron.configure({
     name: appConfigs.appName,
     host: host ? host : '192.168.0.116',
-    port: '9090',
   });
 }
 

@@ -4,7 +4,6 @@ import DeviceInfo from 'react-native-device-info';
 import {NativeModules} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {APP_NAME} from '../constants';
 import {appConfigs} from './Configs';
 
 console.disableYellowBox = true;
@@ -13,13 +12,13 @@ Reactotron.setAsyncStorageHandler(AsyncStorage);
 
 if (DeviceInfo.isEmulatorSync()) {
   Reactotron.configure({
-    name: APP_NAME,
+    name: appConfigs.appName,
   });
 } else {
   // Config for real device
   const host = NativeModules.SourceCode.scriptURL.split('://')[1].split(':')[0];
   Reactotron.configure({
-    name: APP_NAME,
+    name: appConfigs.appName,
     host: host ? host : '192.168.0.116',
     port: '9090',
   });

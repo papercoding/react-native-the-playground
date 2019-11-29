@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -185,26 +185,25 @@ const RootNavigator = createStackNavigator(
 const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
-  const [canShowAlertNetworkChange, setCanShowAlertNetworkChange] = useState(false);
+  const refDropdownAlert = useRef(null);
+  const canShowAlert = useRef(false);
   const isConnected = useNetworkState();
 
   useEffect(() => {
     setTimeout(() => {
-      setCanShowAlertNetworkChange(true);
+      canShowAlert.current = true;
     }, 1000);
-  }, [canShowAlertNetworkChange]);
+  }, []);
 
   useEffect(() => {
     if (isConnected === null) {
       return;
     }
-
-    if (isConnected && canShowAlertNetworkChange) {
-      this.dropDownAlertRef.alertWithType('success', 'Connected');
+    if (isConnected && canShowAlert.current) {
+      refDropdownAlert.current.alertWithType('success', 'Connected');
     } else if (!isConnected) {
-      this.dropDownAlertRef.alertWithType('error', 'No Internet Connection');
+      refDropdownAlert.current.alertWithType('error', 'No Internet Connection');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
 
   return (
@@ -219,7 +218,7 @@ const App = () => {
                   backgroundColor={appConsumer.theme.colors.defaultStatusBar}
                 />
                 <Navigation screenProps={{theme: appConsumer.theme}} />
-                <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} useNativeDriver />
+                <DropdownAlert ref={refDropdownAlert} closeInterval={1000} useNativeDriver />
               </View>
             )}
           </AppConsumer>

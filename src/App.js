@@ -24,7 +24,7 @@ import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome'
 import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';
 import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
 import DropdownAlert from 'react-native-dropdownalert';
-import useNetworkState from './Hooks/useNetworkState';
+import useShowNetworkAlert from './Hooks/App/useShowNetworkAlert';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -186,25 +186,17 @@ const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
   const refDropdownAlert = useRef(null);
-  const canShowAlert = useRef(false);
-  const isConnected = useNetworkState();
+  const showNetworkConnectedAlert = useShowNetworkAlert();
 
   useEffect(() => {
-    setTimeout(() => {
-      canShowAlert.current = true;
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    if (isConnected === null) {
+    console.tron.log(showNetworkConnectedAlert);
+    if (showNetworkConnectedAlert === null) {
       return;
     }
-    if (isConnected && canShowAlert.current) {
-      refDropdownAlert.current.alertWithType('success', 'Connected');
-    } else if (!isConnected) {
-      refDropdownAlert.current.alertWithType('error', 'No Internet Connection');
-    }
-  }, [isConnected]);
+    const alertType = showNetworkConnectedAlert ? 'success' : 'error';
+    const alertMessage = showNetworkConnectedAlert ? 'Connected' : 'No Internet Connection';
+    refDropdownAlert.current.alertWithType(alertType, alertMessage);
+  }, [showNetworkConnectedAlert]);
 
   return (
     <Provider store={store}>
@@ -218,7 +210,12 @@ const App = () => {
                   backgroundColor={appConsumer.theme.colors.defaultStatusBar}
                 />
                 <Navigation screenProps={{theme: appConsumer.theme}} />
-                <DropdownAlert ref={refDropdownAlert} closeInterval={1000} useNativeDriver />
+                <DropdownAlert
+                  ref={refDropdownAlert}
+                  closeInterval={1000}
+                  elevation={3}
+                  useNativeDriver
+                />
               </View>
             )}
           </AppConsumer>

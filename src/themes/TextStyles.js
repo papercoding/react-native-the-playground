@@ -42,7 +42,7 @@ const TextStyles = StyleSheet.create({
     lineHeight: scale(40),
   },
   headline: {
-    fontFamily: RobotoFontFamilyName.RobotoRegular,
+    fontFamily: RobotoFontFamilyName.RobotoBold,
     fontSize: scale(24),
     letterSpacing: scale(0.4),
     lineHeight: scale(32),

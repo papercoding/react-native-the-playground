@@ -40,23 +40,33 @@ export const LightMode = {
   ...DefaultTheme,
   dark: false,
   colors: {
-    ...DefaultTheme.colors,
-    primary: '#5723E5',
+    // primary
+    primary: '#ffa259',
+    primaryLight: '#ffd488',
+    primaryDark: '#c8732c',
     onPrimary: '#FFFFFF',
+    // secondary
     secondary: '#62D7C6',
     onSecondary: '#000000',
-    background: '#FFFFFF',
+    // background
+    background: '#ebebeb',
     onBackground: '#000000',
+    // surface
     surface: '#FFFFFF',
     onSurface: '#000000',
+    // bottom tab bar
+    bottomTabBar: '#ffa259',
+    activeBottomTabBar: '#FFFFFF',
+    inactiveBottomTabBar: '#c8732c',
+    // header bar
+    headerBar: '#ffa259',
+    headerBarTintColor: '#ffffff',
+    // others
     disabled: '',
     placeholder: '',
     backdrop: '',
-    bottomTabBar: '#5723E5',
-    activeBottomTabBar: '#FFFFFF',
-    inactiveBottomTabBar: '#B18EF2',
-    defaultStatusBar: '#5723E5',
-    text: '#000000',
+    defaultStatusBar: '#c8732c',
+    text: '#121212',
   },
 };
 

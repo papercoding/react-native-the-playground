@@ -131,6 +131,8 @@ android {
         applicationId "com.theplayground"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
         versionCode 1
         versionName "1.0"
     }

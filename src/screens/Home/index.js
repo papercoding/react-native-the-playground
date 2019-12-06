@@ -8,8 +8,10 @@ import {commonStyles, SCREEN_WIDTH} from '../../themes';
 import HomeHeaderBackground from './HomeHeaderBackground';
 import {SafeAreaView} from 'react-navigation';
 import HomeHeaderTitle from './HomeHeaderTitle';
-import BlurItem from '../../components/BlurItem';
+import BlurCard from '../../components/BlurCard';
+
 import {LIST_HOME_ITEM} from './data';
+
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -94,7 +96,7 @@ class HomeScreen extends Component {
   renderBlurItem = ({item, index}) => {
     const calculatedMargin = index % 2 === 0 ? {marginRight: scale(8)} : {marginLeft: scale(8)};
     return (
-      <BlurItem
+      <BlurCard
         containerStyle={calculatedMargin}
         item={item}
         index={index}

@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, FlatList, Animated} from 'react-native';
+import {StyleSheet, FlatList, Animated, Platform} from 'react-native';
 import {withTheme} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
 
 import Container from '../../components/Container';
-import AppClient from '../../networkings/AppClient';
+import {commonStyles, SCREEN_WIDTH} from '../../themes';
 import HomeHeaderBackground from './HomeHeaderBackground';
 import {SafeAreaView} from 'react-navigation';
 import HomeHeaderTitle from './HomeHeaderTitle';
 import BlurItem from '../../components/BlurItem';
 import {LIST_HOME_ITEM} from './data';
-import {commonStyles} from '../../themes';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -26,6 +25,7 @@ class HomeScreen extends Component {
       scrollY: new Animated.Value(0.1),
       loading: false,
     };
+    this.listItem = LIST_HOME_ITEM;
   }
 
   handleScrollEvent = () => {};
@@ -33,23 +33,31 @@ class HomeScreen extends Component {
   onBlurItemPress = index => {};
 
   renderHomeHeaderBackground = () => {
-    const scaleBG = this.state.scrollY.interpolate({
-      inputRange: [-200, -100, 0, 1],
+    const scaleXBG = this.state.scrollY.interpolate({
+      inputRange: [-100, -50, 0, 100],
       outputRange: [1.2, 1.1, 1, 1],
+    });
+    const scaleYBG = this.state.scrollY.interpolate({
+      inputRange: [-100, -50, 0, 1],
+      outputRange: [1.2, 1.1, 1, 1],
+    });
+    const rotateBG = this.state.scrollY.interpolate({
+      inputRange: [-200, -100, 0, 100, 200, 300],
+      outputRange: ['50deg', '45deg', '30deg', '20deg', '0deg', '0deg'],
+    });
+    const translateXYBG = this.state.scrollY.interpolate({
+      inputRange: [-200, -100, 0, 100, 200, 400],
+      outputRange: [30, 10, 0, -scale(50), -scale(200), -scale(300)],
     });
     return (
       <HomeHeaderBackground
         style={{
           transform: [
-            {
-              rotate: '30deg',
-            },
-            {
-              scaleX: scaleBG,
-            },
-            {
-              scaleY: scaleBG,
-            },
+            {rotate: rotateBG},
+            {scaleX: scaleXBG},
+            {scaleY: scaleYBG},
+            {translateX: translateXYBG},
+            {translateY: translateXYBG},
           ],
         }}
       />
@@ -57,23 +65,29 @@ class HomeScreen extends Component {
   };
 
   renderHomeHeaderTitle = () => {
-    const scaleBG = this.state.scrollY.interpolate({
+    const scaleXYTitle = this.state.scrollY.interpolate({
       inputRange: [-200, -100, 0, 1],
-      outputRange: [1.1, 1.05, 1, 1],
+      outputRange: [1.175, 1.1, 1, 1],
     });
+    const translateYTitle = this.state.scrollY.interpolate({
+      inputRange: [-200, -100, 0, 100, 200, 300],
+      outputRange: [100, 50, 0, -100, -200, -300],
+    });
+
     return (
-      <HomeHeaderTitle
+      <Animated.View
         style={{
+          position: 'absolute',
+          top: scale(SCREEN_WIDTH / 7.5),
+          left: scale(20),
           transform: [
-            {
-              scaleX: scaleBG,
-            },
-            {
-              scaleY: scaleBG,
-            },
+            {translateY: translateYTitle},
+            {scaleX: scaleXYTitle},
+            {scaleY: scaleXYTitle},
           ],
-        }}
-      />
+        }}>
+        <HomeHeaderTitle />
+      </Animated.View>
     );
   };
 
@@ -93,9 +107,10 @@ class HomeScreen extends Component {
     return (
       <AnimatedFlatList
         style={styles.flatList}
-        scrollEventThrottle={16}
+        contentContainerStyle={styles.flatListContent}
+        scrollEventThrottle={1}
         showsVerticalScrollIndicator={false}
-        data={LIST_HOME_ITEM}
+        data={this.listItem}
         numColumns={2}
         renderItem={this.renderBlurItem}
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: this.state.scrollY}}}], {
@@ -111,8 +126,8 @@ class HomeScreen extends Component {
     return (
       <Container>
         {this.renderHomeHeaderBackground()}
+        {this.renderHomeHeaderTitle()}
         <SafeAreaView style={[commonStyles.fullScreen, styles.container]}>
-          {this.renderHomeHeaderTitle()}
           {this.renderListBlurItem()}
         </SafeAreaView>
       </Container>
@@ -123,11 +138,15 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: scale(16),
-    paddingRight: scale(16),
+    paddingLeft: scale(20),
+    paddingRight: scale(20),
   },
   flatList: {
-    marginTop: 16,
+    flex: 1,
+  },
+  flatListContent: {
+    paddingTop: Platform.OS === 'ios' ? scale(100) : scale(140),
+    paddingBottom: scale(32),
   },
 });
 

@@ -15,22 +15,34 @@ export const DarkMode = {
     secondary: '#62D7C6',
     onSecondary: '#212121',
     // background
-    background: '#212121',
+    background: '#313131',
     onBackground: '#ffffff',
     // surface
     surface: '#323232',
     onSurface: '#ffffff',
     // bottom tab bar
-    bottomTabBar: '#484848',
+    bottomTabBar: '#525252',
     activeBottomTabBar: '#ffa259',
     inactiveBottomTabBar: '#ffffff',
     // header bar
-    headerBar: '#484848',
+    headerBar: '#525252',
     headerBarTintColor: '#ffffff',
+    // card
+    cardColor: '',
+    // button
+    buttonColor: '',
+    // dialog
+    dialogBackgroundColor: '',
     // others
     disabled: '',
     placeholder: '',
     backdrop: '',
+    dividerColor: '',
+    focusColor: '',
+    hoverColor: '',
+    highlightColor: '',
+    splashColor: '',
+    errorColor: '',
     defaultStatusBar: '#000000',
     text: '#ffffff',
   },
@@ -49,7 +61,7 @@ export const LightMode = {
     secondary: '#62D7C6',
     onSecondary: '#000000',
     // background
-    background: '#ebebeb',
+    background: '#6c5b7b',
     onBackground: '#000000',
     // surface
     surface: '#FFFFFF',

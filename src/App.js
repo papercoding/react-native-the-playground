@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -7,9 +7,6 @@ import {View, StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 import {store, persistor} from './redux/store';
 
@@ -25,6 +22,8 @@ import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat'
 import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
 import DropdownAlert from 'react-native-dropdownalert';
 import useShowNetworkAlert from './Hooks/App/useShowNetworkAlert';
+
+import {TabBarIcon} from './components/BottomTabBar/MyCustomBottomTabBar';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -127,21 +126,21 @@ const MainAppBottomTab = createBottomTabNavigator(
       screen: HomeStackNavigator,
       navigationOptions: {
         tabBarLabel: 'Home',
-        tabBarButtonComponent: TouchableBounce,
+        tabBarIcon: ({tintColor}) => <TabBarIcon name="home" tintColor={tintColor} />,
       },
     },
     [BOTTOM_TAB_ROUTE_NAME.NotificationsTab]: {
       screen: NotificationsStackNavigator,
       navigationOptions: {
         tabBarLabel: 'Notifications',
-        tabBarButtonComponent: TouchableBounce,
+        tabBarIcon: ({tintColor}) => <TabBarIcon name="notifications" tintColor={tintColor} />,
       },
     },
     [BOTTOM_TAB_ROUTE_NAME.SettingsTab]: {
       screen: SettingsStackNavigator,
       navigationOptions: {
         tabBarLabel: 'Settings',
-        tabBarButtonComponent: TouchableBounce,
+        tabBarIcon: ({tintColor}) => <TabBarIcon name="settings" tintColor={tintColor} />,
       },
     },
   },
@@ -151,21 +150,6 @@ const MainAppBottomTab = createBottomTabNavigator(
       showLabel: SHOW_TAB_BAR_LABEL,
       labelStyle: {fontSize: 12},
     },
-    defaultNavigationOptions: ({navigation}) => ({
-      tabBarIcon: ({tintColor}) => {
-        const {routeName} = navigation.state;
-        switch (routeName) {
-          case BOTTOM_TAB_ROUTE_NAME.HomeTab:
-            return <Icon color={tintColor} size={20} name="home" />;
-          case BOTTOM_TAB_ROUTE_NAME.NotificationsTab:
-            return <Icon color={tintColor} size={20} name="bell" />;
-          case BOTTOM_TAB_ROUTE_NAME.SettingsTab:
-            return <Icon color={tintColor} size={20} name="cog" />;
-          default:
-            return <Icon color={tintColor} size={20} name="user" />;
-        }
-      },
-    }),
     tabBarComponent: props => <MyCustomBottomTabBar {...props} />,
   },
 );

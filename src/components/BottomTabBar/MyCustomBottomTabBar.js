@@ -88,7 +88,9 @@ function MyCustomBottomTabBar(props) {
             }}
             accessibilityLabel={getAccessibilityLabel({route})}>
             {renderIcon({route, focused: isRouteActive, tintColor})}
-            <CustomText style={styles.bottomLabel}>{getLabelText({route})}</CustomText>
+            <CustomText style={[styles.bottomLabel, {color: tintColor}]}>
+              {getLabelText({route})}
+            </CustomText>
           </TouchableBounce>
         );
       })}

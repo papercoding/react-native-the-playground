@@ -12,7 +12,6 @@ import BlurCard from '../../components/BlurCard';
 
 import {LIST_HOME_ITEM} from './data';
 
-
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 class HomeScreen extends Component {

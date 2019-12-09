@@ -3,8 +3,8 @@ import {View, Button} from 'react-native';
 
 import Container from '../../components/Container';
 import {AppConsumer} from '../../Hocs/AppContextProvider';
-import DynamicThemeButton from './DynamicThemeButton';
 import {LightMode, DarkMode} from '../../themes';
+import {SCREEN_STACK_ROUTE_NAME} from '../../App';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
@@ -32,7 +32,12 @@ class SettingsScreen extends Component {
                   appConsumer.updateTheme(DarkMode);
                 }}
               />
-              <DynamicThemeButton />
+              <Button
+                title="Demo"
+                onPress={() => {
+                  this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Demo);
+                }}
+              />
             </View>
           </Container>
         )}

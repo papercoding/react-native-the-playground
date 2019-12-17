@@ -1,7 +1,5 @@
 # Have fun with React Native
 
-# Have fun with React Native
-
 # Introduction
 
 "One of the best way to learn programming is to start creating something by those skills with step by step". So, I created this project to learn React Native in a better, deeper and more effective way.

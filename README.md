@@ -13,6 +13,6 @@
 - Setup Axios Client basically for common use-case.
 
 <p align="center">  
-  <!-- <img src="https://github.com/trungnguyen22/ReactNative-BaseProject/blob/master/art/screen_shot_dark_mode.png" width="350" alt="accessibility text"> -->
-  <!-- <img src="https://github.com/trungnguyen22/ReactNative-BaseProject/blob/master/art/screen_shot_light_mode.png" width="350" title="hover text"> -->
+  <img src="https://github.com/papercoding/reactnative-ThePlayground/blob/master/art/screen_shot_dark_mode.png" width="350" alt="accessibility text">
+  <img src="https://github.com/papercoding/reactnative-ThePlayground/blob/master/art/screen_shot_light_mode.png" width="350" title="hover text">
 </p>

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ThePlayground</string>
+    <string name="app_name">The Playground</string>
+    <string name="display_app_name">The Playground</string>
 </resources>

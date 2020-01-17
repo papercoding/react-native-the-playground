@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, FlatList, Animated, Platform} from 'react-native';
 import {withTheme} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
+import SplashScreen from 'react-native-splash-screen'
 
 import Container from '../../components/Container';
 import {commonStyles, SCREEN_WIDTH} from '../../themes';
@@ -27,6 +28,10 @@ class HomeScreen extends Component {
       loading: false,
     };
     this.listItem = LIST_HOME_ITEM;
+  }
+
+  componentDidMount() {
+    SplashScreen.hide();
   }
 
   handleScrollEvent = () => {};

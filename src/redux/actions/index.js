@@ -1,3 +1,4 @@
 const todos = require('./todos');
+const notifications = require('./notifications');
 
-module.exports = {...todos};
+module.exports = {...todos, ...notifications};

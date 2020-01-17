@@ -23,7 +23,7 @@ import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed'
 import DropdownAlert from 'react-native-dropdownalert';
 import useShowNetworkAlert from './Hooks/App/useShowNetworkAlert';
 
-import {TabBarIcon} from './components/BottomTabBar/MyCustomBottomTabBar';
+import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -126,21 +126,23 @@ const MainAppBottomTab = createBottomTabNavigator(
       screen: HomeStackNavigator,
       navigationOptions: {
         tabBarLabel: 'Home',
-        tabBarIcon: ({tintColor}) => <TabBarIcon name="home" tintColor={tintColor} />,
+        tabBarIcon: ({tintColor}) => <TabBarIconWithBadge name="home" tintColor={tintColor} />,
       },
     },
     [BOTTOM_TAB_ROUTE_NAME.NotificationsTab]: {
       screen: NotificationsStackNavigator,
       navigationOptions: {
         tabBarLabel: 'Notifications',
-        tabBarIcon: ({tintColor}) => <TabBarIcon name="notifications" tintColor={tintColor} />,
+        tabBarIcon: ({tintColor}) => (
+          <TabBarIconWithBadge name="notifications" tintColor={tintColor} />
+        ),
       },
     },
     [BOTTOM_TAB_ROUTE_NAME.SettingsTab]: {
       screen: SettingsStackNavigator,
       navigationOptions: {
-        tabBarLabel: 'Settings',
-        tabBarIcon: ({tintColor}) => <TabBarIcon name="settings" tintColor={tintColor} />,
+        tabBarLabel: 'Theme',
+        tabBarIcon: ({tintColor}) => <TabBarIconWithBadge name="settings" tintColor={tintColor} />,
       },
     },
   },

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, FlatList, Animated, Platform} from 'react-native';
-import {withTheme} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
 
 import Container from '../../components/Container';
 import {commonStyles, SCREEN_WIDTH} from '../../themes';
@@ -12,6 +11,8 @@ import HomeHeaderTitle from './HomeHeaderTitle';
 import BlurCard from '../../components/BlurCard';
 
 import {LIST_HOME_ITEM} from './data';
+import {fetchNotifications} from '../../redux/actions/notifications';
+import {connect} from 'react-redux';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -32,6 +33,7 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     SplashScreen.hide();
+    this.props.fetchNotifications();
   }
 
   handleScrollEvent = () => {};
@@ -156,4 +158,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(HomeScreen);
+const mapDispatchToProps = dispatch => ({
+  fetchNotifications: () => dispatch(fetchNotifications()),
+});
+
+export default connect(null, mapDispatchToProps)(HomeScreen);

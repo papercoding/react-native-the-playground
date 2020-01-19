@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {DarkMode} from '../../themes';
+import {getThemeMode} from '../themes/Colors';
 
 const Context = React.createContext();
 
 export class AppContextProvider extends Component {
   state = {
-    theme: DarkMode,
-    updateTheme: theme => {
-      this.setState({theme: theme});
+    theme: getThemeMode('dark'),
+    updateTheme: mode => {
+      // theme is type of an object theme, containing color palette
+      this.setState({theme: getThemeMode(mode)});
     },
   };
 

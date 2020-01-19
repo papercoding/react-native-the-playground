@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import CustomText from '../CustomText';
 import {scale} from 'react-native-size-matters';
-import TextStyles from '../../themes/TextStyles';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import FastImage from 'react-native-fast-image';
 import {withTheme} from 'react-native-paper';
+
+import TextStyles from '../../themes/TextStyles';
+import CustomText from '../CustomText';
 
 const BlurCard = ({containerStyle, theme, item, index, onPress}) => {
   const {title, imageSource} = item;

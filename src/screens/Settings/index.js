@@ -1,49 +1,44 @@
 import React, {Component} from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, StyleSheet} from 'react-native';
 
 import Container from '../../components/Container';
-import {AppConsumer} from '../../Hocs/AppContextProvider';
-import {LightMode, DarkMode} from '../../themes';
+import {AppConsumer, AppContextProvider, AppContext} from '../../Context';
+import {LightMode, DarkMode, commonStyles} from '../../themes';
 import {SCREEN_STACK_ROUTE_NAME} from '../../App';
+import ThemedCard from '../../components/ThemedCard';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
     title: 'Settings',
   };
+
+  onThemedCardPress = theme => {
+    this.context.updateTheme(theme);
+  };
+
   render() {
+    const {theme} = this.context;
     return (
-      <AppConsumer>
-        {appConsumer => (
-          <Container
-            style={{
-              flex: 1,
-              backgroundColor: appConsumer.theme.colors.background,
-            }}>
-            <View style={{flex: 1, alignItems: 'center'}}>
-              <Button
-                title="Light Mode"
-                onPress={() => {
-                  appConsumer.updateTheme(LightMode);
-                }}
-              />
-              <Button
-                title="Dark Mode"
-                onPress={() => {
-                  appConsumer.updateTheme(DarkMode);
-                }}
-              />
-              <Button
-                title="Demo"
-                onPress={() => {
-                  this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Demo);
-                }}
-              />
-            </View>
-          </Container>
-        )}
-      </AppConsumer>
+      <Container containerStyle={{padding: 16}}>
+        <ThemedCard
+          title="Light Mode"
+          themeMode="light"
+          isActive={!theme.dark}
+          onPress={this.onThemedCardPress}
+        />
+        <ThemedCard
+          cardContainerStyle={{marginTop: 16}}
+          title="Dark Mode"
+          themeMode="dark"
+          isActive={theme.dark}
+          onPress={this.onThemedCardPress}
+        />
+      </Container>
     );
   }
 }
 
+const styles = StyleSheet.create({});
+
+SettingsScreen.contextType = AppContext;
 export default SettingsScreen;

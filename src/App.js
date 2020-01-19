@@ -15,7 +15,7 @@ import SettingsScreen from './screens/Settings';
 import NotificationsScreen from './screens/Notifications';
 import DemoScreen from './screens/Demo';
 import DemoModal from './screens/Modals/DemoModal';
-import {AppContextProvider, AppConsumer} from './Hocs/AppContextProvider';
+import {AppContextProvider, AppConsumer} from './Context';
 import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar';
 import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome';
 import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';

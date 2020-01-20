@@ -1,14 +1,17 @@
 import * as React from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import posed from 'react-native-pose';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-
 import {withTheme} from 'react-native-paper';
+import _ from 'lodash';
+
 import CustomText from '../CustomText';
-import {SCREEN_WIDTH} from '../../themes';
+import {SCREEN_WIDTH, Spacing} from '../../themes';
 import {scale} from 'react-native-size-matters';
 import {connect} from 'react-redux';
+import TextStyles from '../../themes/TextStyles';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;
@@ -47,6 +50,21 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
+  toastMessageContainer: {
+    position: 'absolute',
+    top: -120,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  toastMessage: {
+    borderRadius: 8,
+    backgroundColor: 'white',
+    padding: Spacing.mini,
+  },
 });
 
 export const TabBarIcon = ({tintColor, name, badgeCount = 0}) => {
@@ -76,24 +94,45 @@ export const TabBarIcon = ({tintColor, name, badgeCount = 0}) => {
     </View>
   );
 };
-
+// Redux integration
 export const TabBarIconWithBadge = connect(state => ({badgeCount: state.badgeCount}))(TabBarIcon);
 
 function MyCustomBottomTabBar(props) {
-  const {
-    renderIcon,
-    getLabelText,
-    onTabPress,
-    onTabLongPress,
-    getAccessibilityLabel,
-    navigation,
-    theme,
-  } = props;
+  const timerID = useRef(null);
+  const [toastMessage, setToastMessage] = useState('');
+  const [isShownToast, setIsShownToast] = useState(false);
+  const [countHomeTabClick, setCountHomeTabClick] = useState(0);
+  const {renderIcon, getLabelText, onTabPress, getAccessibilityLabel, navigation, theme} = props;
   const {colors} = theme;
   const {routes, index: activeRouteIndex} = navigation.state;
 
+  useEffect(() => {
+    if (countHomeTabClick === 5) {
+      setCountHomeTabClick(0);
+      setIsShownToast(true);
+      setToastMessage('Developer mode is activated ! 🥳');
+    }
+    if (!timerID.current) {
+      timerID.current = setTimeout(() => {
+        setIsShownToast(false);
+      }, 1200);
+    } else {
+      clearTimeout(timerID.current);
+      timerID.current = setTimeout(() => {
+        setIsShownToast(false);
+      }, 1200);
+    }
+  }, [countHomeTabClick]);
+
   return (
     <View style={[styles.container, {backgroundColor: colors.bottomTabBar}]}>
+      {isShownToast && (
+        <View style={styles.toastMessageContainer}>
+          <View style={styles.toastMessage}>
+            <Text style={TextStyles.normalText}>{toastMessage}</Text>
+          </View>
+        </View>
+      )}
       <View style={StyleSheet.absoluteFillObject}>
         <SpotLight
           style={[styles.sportLight, {backgroundColor: colors.activeBottomTabBar}]}
@@ -108,10 +147,10 @@ function MyCustomBottomTabBar(props) {
             key={routeIndex}
             style={styles.tabButton}
             onPress={() => {
+              if (__DEV__) {
+                setCountHomeTabClick(route.key === 'HomeTab' ? countHomeTabClick + 1 : 0);
+              }
               onTabPress({route});
-            }}
-            onLongPress={() => {
-              onTabLongPress({route});
             }}
             accessibilityLabel={getAccessibilityLabel({route})}>
             {renderIcon({route, focused: isRouteActive, tintColor})}

@@ -1,28 +1,20 @@
 import React, {useEffect, useRef} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-
-import {View, StatusBar} from 'react-native';
-
+import {store, persistor} from './redux/store';
+import {View, StatusBar, Platform} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-
-import {store, persistor} from './redux/store';
+import DropdownAlert from 'react-native-dropdownalert';
 
 import HomeScreen from './screens/Home';
 import SettingsScreen from './screens/Settings';
 import NotificationsScreen from './screens/Notifications';
-import DemoScreen from './screens/Demo';
 import DemoModal from './screens/Modals/DemoModal';
 import {AppContextProvider, AppConsumer} from './Context';
 import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar';
-import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome';
-import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';
-import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
-import DropdownAlert from 'react-native-dropdownalert';
-import NetworkStatus from './Hooks/App/useShowNetworkAlert';
-
+import NetworkStatus from './Hooks/NetworkStatus';
 import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
 
 const SHOW_TAB_BAR_LABEL = true;
@@ -50,16 +42,6 @@ export const MODAL_ROUTE_NAME = {
 const HomeStackNavigator = createStackNavigator(
   {
     [SCREEN_STACK_ROUTE_NAME.Home]: {screen: HomeScreen},
-    [SCREEN_STACK_ROUTE_NAME.Demo]: {screen: DemoScreen},
-    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersHome]: {
-      screen: DemoSizeMattersHome,
-    },
-    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersChat]: {
-      screen: DemoSizeMattersChat,
-    },
-    [SCREEN_STACK_ROUTE_NAME.DemoSizeMattersFeed]: {
-      screen: DemoSizeMattersFeed,
-    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,
@@ -201,6 +183,11 @@ const App = () => {
                   closeInterval={1000}
                   elevation={3}
                   useNativeDriver
+                  onClose={() => {
+                    if (Platform.OS === 'android') {
+                      StatusBar.setBackgroundColor(appConsumer.theme.colors.defaultStatusBar, true);
+                    }
+                  }}
                 />
               </View>
             )}

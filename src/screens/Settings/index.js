@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, StyleSheet} from 'react-native';
+import {StyleSheet, Platform, StatusBar} from 'react-native';
 
 import Container from '../../components/Container';
 import {AppConsumer, AppContextProvider, AppContext} from '../../Context';
@@ -11,6 +11,14 @@ class SettingsScreen extends Component {
   static navigationOptions = {
     title: 'Settings',
   };
+
+  componentDidMount() {
+    const {theme} = this.context;
+    this.navigationListener = this.props.navigation.addListener('didFocus', () => {
+      Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
+      Platform.OS === 'android' && StatusBar.setTranslucent(false);
+    });
+  }
 
   onThemedCardPress = theme => {
     this.context.updateTheme(theme);

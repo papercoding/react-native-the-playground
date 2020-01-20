@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {Platform, StatusBar} from 'react-native';
 import Container from '../../components/Container';
 import CustomText from '../../components/CustomText';
 import TextStyles from '../../themes/TextStyles';
+import {AppContext} from '../../Context';
 
 export class NotificationsScreen extends Component {
   static navigationOptions = ({screenProps}) => {
@@ -9,6 +11,18 @@ export class NotificationsScreen extends Component {
       title: 'Notifications',
     };
   };
+
+  componentDidMount() {
+    const {theme} = this.context;
+    this.navigationListener = this.props.navigation.addListener('didFocus', () => {
+      Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
+      Platform.OS === 'android' && StatusBar.setTranslucent(false);
+    });
+  }
+
+  componentWillUnmount() {
+    this.navigationListener.remove();
+  }
 
   render() {
     return (
@@ -18,5 +32,7 @@ export class NotificationsScreen extends Component {
     );
   }
 }
+
+NotificationsScreen.contextType = AppContext;
 
 export default NotificationsScreen;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, FlatList, Animated, Platform} from 'react-native';
+import {StyleSheet, FlatList, Animated, Platform, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -34,6 +34,10 @@ class HomeScreen extends Component {
   componentDidMount() {
     SplashScreen.hide();
     this.props.fetchNotifications();
+    this.navigationListener = this.props.navigation.addListener('didFocus', () => {
+      Platform.OS === 'android' && StatusBar.setBackgroundColor('transparent', true);
+      Platform.OS === 'android' && StatusBar.setTranslucent(true);
+    });
   }
 
   handleScrollEvent = () => {};

@@ -9,7 +9,7 @@ export class AppContextProvider extends Component {
     theme: getThemeMode('dark'),
     updateTheme: mode => {
       // theme is type of an object theme, containing color palette
-      this.setState({theme: getThemeMode(mode)});
+      this.setState({theme: getThemeMode(mode)}, () => {});
     },
   };
 

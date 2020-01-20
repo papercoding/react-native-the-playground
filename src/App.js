@@ -12,9 +12,9 @@ import HomeScreen from './screens/Home';
 import SettingsScreen from './screens/Settings';
 import NotificationsScreen from './screens/Notifications';
 import DemoModal from './screens/Modals/DemoModal';
-import {AppContextProvider, AppConsumer} from './Context';
+import {AppContextProvider, AppConsumer} from './context';
 import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar';
-import NetworkStatus from './Hooks/NetworkStatus';
+import NetworkStatus from './hooks/NetworkStatus';
 import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
 
 const SHOW_TAB_BAR_LABEL = true;

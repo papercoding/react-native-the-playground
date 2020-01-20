@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Platform, StatusBar} from 'react-native';
 
 import Container from '../../components/Container';
-import {AppContext} from '../../Context';
+import {AppContext} from '../../context';
 import ThemedCard from '../../components/ThemedCard';
 
 class SettingsScreen extends Component {
@@ -13,7 +13,6 @@ class SettingsScreen extends Component {
   componentDidMount() {
     this.navigationListener = this.props.navigation.addListener('didFocus', () => {
       const {theme} = this.context;
-      console.tron.log('Settings - theme: ', theme.dark);
       Platform.OS === 'android' &&
         StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
       Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);

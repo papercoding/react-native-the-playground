@@ -3,7 +3,7 @@ import {Platform, StatusBar} from 'react-native';
 import Container from '../../components/Container';
 import CustomText from '../../components/CustomText';
 import TextStyles from '../../themes/TextStyles';
-import {AppContext} from '../../Context';
+import {AppContext} from '../../context';
 
 export class NotificationsScreen extends Component {
   static navigationOptions = ({screenProps}) => {

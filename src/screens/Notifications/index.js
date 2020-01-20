@@ -13,8 +13,11 @@ export class NotificationsScreen extends Component {
   };
 
   componentDidMount() {
-    const {theme} = this.context;
     this.navigationListener = this.props.navigation.addListener('didFocus', () => {
+      const {theme} = this.context;
+      console.tron.log('Notification - theme: ', theme.dark);
+      Platform.OS === 'android' &&
+        StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
       Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
       Platform.OS === 'android' && StatusBar.setTranslucent(false);
     });

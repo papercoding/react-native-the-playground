@@ -21,7 +21,7 @@ import DemoSizeMattersHome from './screens/Demo/SizeMatters/DemoSizeMattersHome'
 import DemoSizeMattersChat from './screens/Demo/SizeMatters/DemoSizeMattersChat';
 import DemoSizeMattersFeed from './screens/Demo/SizeMatters/DemoSizeMattersFeed';
 import DropdownAlert from 'react-native-dropdownalert';
-import useShowNetworkAlert from './Hooks/App/useShowNetworkAlert';
+import NetworkStatus from './Hooks/App/useShowNetworkAlert';
 
 import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
 
@@ -172,10 +172,10 @@ const Navigation = createAppContainer(RootNavigator);
 
 const App = () => {
   const refDropdownAlert = useRef(null);
-  const showNetworkConnectedAlert = useShowNetworkAlert();
+  const showNetworkConnectedAlert = NetworkStatus();
 
+  // Similar to componentDidMount, componentDidUpdate and componentWillUnmount
   useEffect(() => {
-    console.tron.log(showNetworkConnectedAlert);
     if (showNetworkConnectedAlert === null) {
       return;
     }

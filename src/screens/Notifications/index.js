@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import Container from '../../components/Container';
+import CustomText from '../../components/CustomText';
+import TextStyles from '../../themes/TextStyles';
 
 export class NotificationsScreen extends Component {
   static navigationOptions = ({screenProps}) => {
@@ -10,9 +12,9 @@ export class NotificationsScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text>{'Notifications'}</Text>
-      </View>
+      <Container containerStyle={{justifyContent: 'center', alignItems: 'center'}}>
+        <CustomText style={TextStyles.headline}>{'This feature is developed'}</CustomText>
+      </Container>
     );
   }
 }

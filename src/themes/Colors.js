@@ -9,7 +9,7 @@ const BaseMode = {
     onSecondary: '#212121',
     baseDark: '#313131',
     baseDark2: '#525252',
-    baseLight: '#edf7fa',
+    baseLight: '#e0e0e0',
   },
 };
 

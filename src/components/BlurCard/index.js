@@ -11,7 +11,7 @@ import CustomText from '../CustomText';
 
 const BlurCard = ({containerStyle, theme, item, index, onPress}) => {
   const {title, imageSource} = item;
-  const blurType = theme.dark ? 'dark' : 'regular';
+  const blurType = theme.dark ? 'dark' : 'light';
 
   const onBlurItemPress = () => {
     onPress(index);

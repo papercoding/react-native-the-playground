@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {getThemeMode} from '../themes/Colors';
+import {saveItem, LocalStorageKey, getItem} from '../utils/LocalStorage';
 
 const Context = React.createContext();
 
 export class AppContextProvider extends Component {
-  state = {
-    theme: getThemeMode('dark'),
-    updateTheme: mode => {
-      // theme is type of an object theme, containing color palette
-      this.setState({theme: getThemeMode(mode)}, () => {});
-    },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: getThemeMode(props.themeMode),
+      updateTheme: async mode => {
+        await saveItem(LocalStorageKey.APP_THEME_MODE, mode);
+        this.setState({theme: getThemeMode(mode)});
+      },
+    };
+  }
+
+  async componentWillMount() {
+    const themeMode = await getItem(LocalStorageKey.APP_THEME_MODE);
+    this.setState({theme: getThemeMode(themeMode)});
+  }
 
   render() {
     const {theme} = this.state;

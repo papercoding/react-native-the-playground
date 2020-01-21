@@ -7,6 +7,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import DropdownAlert from 'react-native-dropdownalert';
+import SplashScreen from 'react-native-splash-screen';
 
 import HomeScreen from './screens/Home';
 import SettingsScreen from './screens/Settings';
@@ -155,6 +156,10 @@ const Navigation = createAppContainer(RootNavigator);
 const App = () => {
   const refDropdownAlert = useRef(null);
   const showNetworkConnectedAlert = NetworkStatus();
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   // Similar to componentDidMount, componentDidUpdate and componentWillUnmount
   useEffect(() => {

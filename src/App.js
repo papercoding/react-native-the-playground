@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './redux/store';
@@ -24,10 +24,6 @@ export const SCREEN_STACK_ROUTE_NAME = {
   Home: 'Home',
   Notifications: 'Notifications',
   Settings: 'Settings',
-  Demo: 'Demo',
-  DemoSizeMattersHome: 'DemoSizeMattersHome',
-  DemoSizeMattersChat: 'DemoSizeMattersChat',
-  DemoSizeMattersFeed: 'DemoSizeMattersFeed',
 };
 
 export const BOTTOM_TAB_ROUTE_NAME = {

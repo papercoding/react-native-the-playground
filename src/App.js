@@ -17,6 +17,7 @@ import {AppContextProvider, AppConsumer} from './context';
 import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar';
 import NetworkStatus from './hooks/NetworkStatus';
 import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
+import DeveloperScreen from './screens/Developer';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -24,6 +25,7 @@ export const SCREEN_STACK_ROUTE_NAME = {
   Home: 'Home',
   Notifications: 'Notifications',
   Settings: 'Settings',
+  Developer: 'Developer',
 };
 
 export const BOTTOM_TAB_ROUTE_NAME = {
@@ -39,6 +41,12 @@ export const MODAL_ROUTE_NAME = {
 const HomeStackNavigator = createStackNavigator(
   {
     [SCREEN_STACK_ROUTE_NAME.Home]: {screen: HomeScreen},
+    [SCREEN_STACK_ROUTE_NAME.Developer]: {
+      screen: DeveloperScreen,
+      navigationOptions: {
+        title: 'Developer',
+      },
+    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,

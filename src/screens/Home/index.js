@@ -105,7 +105,7 @@ class HomeScreen extends Component {
     const calculatedMargin = index % 2 === 0 ? {marginRight: scale(8)} : {marginLeft: scale(8)};
     return (
       <BlurCard
-        containerStyle={calculatedMargin}
+        containerStyle={[{flex: 1}, calculatedMargin]}
         item={item}
         index={index}
         onPress={this.onBlurItemPress}

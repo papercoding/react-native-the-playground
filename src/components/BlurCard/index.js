@@ -9,7 +9,7 @@ import {withTheme} from 'react-native-paper';
 import TextStyles from '../../themes/TextStyles';
 import CustomText from '../CustomText';
 
-const BlurCard = ({containerStyle, theme, item, index, onPress}) => {
+const BlurCard = ({containerStyle, theme, item, index, onPress = () => {}}) => {
   const {title, imageSource} = item;
   const blurType = theme.dark ? 'dark' : 'light';
 
@@ -32,7 +32,6 @@ const BlurCard = ({containerStyle, theme, item, index, onPress}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: scale(32),
     paddingBottom: scale(32),
     marginBottom: scale(16),

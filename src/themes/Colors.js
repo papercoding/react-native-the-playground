@@ -1,3 +1,5 @@
+import {DefaultTheme} from 'react-native-paper';
+
 const BaseMode = {
   colors: {
     primary: '#ffa259',
@@ -15,8 +17,10 @@ const BaseMode = {
 
 export function getThemeMode(theme) {
   return {
+    ...DefaultTheme,
     dark: theme === 'dark' ? true : false,
     colors: {
+      ...DefaultTheme.colors,
       // primary
       primary: BaseMode.colors.primary,
       primaryLight: BaseMode.colors.primaryLight,

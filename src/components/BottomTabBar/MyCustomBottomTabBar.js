@@ -12,6 +12,7 @@ import {SCREEN_WIDTH, Spacing} from '../../themes';
 import {scale} from 'react-native-size-matters';
 import {connect} from 'react-redux';
 import TextStyles from '../../themes/TextStyles';
+import {SCREEN_STACK_ROUTE_NAME} from '../../App';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;
@@ -106,11 +107,18 @@ function MyCustomBottomTabBar(props) {
   const {colors} = theme;
   const {routes, index: activeRouteIndex} = navigation.state;
 
+  const navigateToDeveloperScreen = () => {
+    navigation.navigate(SCREEN_STACK_ROUTE_NAME.Developer);
+  };
+
   useEffect(() => {
     if (countHomeTabClick === 5) {
       setCountHomeTabClick(0);
       setIsShownToast(true);
       setToastMessage('Developer mode is activated ! 🥳');
+      setTimeout(() => {
+        navigateToDeveloperScreen();
+      }, 2000);
     }
     if (!timerID.current) {
       timerID.current = setTimeout(() => {

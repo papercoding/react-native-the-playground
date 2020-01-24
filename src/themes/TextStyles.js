@@ -89,6 +89,18 @@ const TextStyles = StyleSheet.create({
     letterSpacing: scale(0.4),
     lineHeight: scale(15),
   },
+  headerBarTitle: {
+    fontFamily: RobotoFontFamilyName.RobotoMedium,
+    fontSize: 18,
+    letterSpacing: 0.4,
+    lineHeight: 24,
+  },
+  headerBarButtonTitle: {
+    fontFamily: RobotoFontFamilyName.RobotoMedium,
+    fontSize: 12,
+    letterSpacing: 0.4,
+    lineHeight: 20,
+  },
 });
 
 export default TextStyles;

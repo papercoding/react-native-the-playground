@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView, Button as RNButton} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {ScrollView} from 'react-native-gesture-handler';
+import {Button} from 'react-native-paper';
 
 import Container from '../../components/Container';
 import CustomText from '../../components/CustomText';
 import TextStyles from '../../themes/TextStyles';
 import {Spacing} from '../../themes';
 import BlurCard from '../../components/BlurCard';
-import {Button} from 'react-native-paper';
-
-const AnimatedCustomText = Animatable.createAnimatableComponent(CustomText);
+import ProgressBar from './Components/ProgressBar';
+import {SCREEN_STACK_ROUTE_NAME} from '../../App';
 
 const ShowCase = ({label, children}) => {
   return (
@@ -22,13 +21,56 @@ const ShowCase = ({label, children}) => {
 };
 
 export default class DeveloperScreen extends Component {
+  static navigationOptions = ({navigation}) => ({
+    headerRight: () => (
+      <Button
+        mode="text"
+        uppercase={false}
+        labelStyle={{...TextStyles.headerBarButtonTitle, color: 'white'}}
+        onPress={() => {
+          navigation.navigate(SCREEN_STACK_ROUTE_NAME.Playground);
+        }}>
+        {'Playground'}
+      </Button>
+    ),
+  });
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: 0,
+      visible: true,
+    };
+  }
+
+  fetchData = () => {
+    let progress = 0;
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setInterval(() => {
+      this.setState({
+        progress,
+      });
+      progress += 0.1;
+      if (progress > 1) {
+        clearInterval(this.timeout);
+      }
+    }, 1000);
+  };
+
+  componentDidMount() {
+    if (this.scrollViewRef) {
+      this.scrollViewRef.scrollToEnd();
+    }
+    this.fetchData();
+  }
+
   renderTitle = () => (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <CustomText style={TextStyles.title}>{"Let's rock !!! 🔥🔥🔥"}</CustomText>
     </View>
   );
-
-  render;
 
   renderBlurCardShowCase = () => {
     return (
@@ -46,25 +88,18 @@ export default class DeveloperScreen extends Component {
 
   renderAnimatableText = () => {
     return (
-      <ShowCase label="Animatable:">
-        {/* ====== Slide In Down ====== */}
-        <Animatable.View animation="slideInDown" iterationCount={5} direction="alternate">
-          <CustomText>{'Up and down you go'}</CustomText>
-        </Animatable.View>
+      <ShowCase label="react-native-animatable:">
         {/* ====== Pulse ====== */}
-        <Animatable.View
-          style={{marginLeft: Spacing.small, marginTop: Spacing.normal}}
-          animation="pulse"
-          easing="ease-out"
-          iterationCount="infinite">
+        <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite">
           <CustomText style={TextStyles.body2}>{'❤️'}</CustomText>
         </Animatable.View>
+        {/* ====== bounceInLeft ====== */}
         <Animatable.View
-          style={{marginLeft: Spacing.small, marginTop: Spacing.normal}}
-          animation="pulse"
+          style={{marginTop: Spacing.normal}}
+          animation="bounceInLeft"
           easing="ease-out"
-          iterationCount="infinite">
-          <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+          iterationCount="5">
+          <Button icon="camera" mode="contained" onPress={() => {}}>
             Press me
           </Button>
         </Animatable.View>
@@ -72,13 +107,41 @@ export default class DeveloperScreen extends Component {
     );
   };
 
+  renderReanimatedProgressBar = () => {
+    return (
+      <ShowCase label="Reanimated Progress Bar">
+        <View>
+          {this.state.visible && <ProgressBar progress={this.state.progress} />}
+          <RNButton
+            onPress={() => {
+              this.setState({progress: 0});
+              this.fetchData();
+            }}
+            title="RESET"
+          />
+          <RNButton
+            onPress={() => this.setState(prev => ({visible: !prev.visible}))}
+            title="TOGGLE VISIBILITY"
+          />
+        </View>
+      </ShowCase>
+    );
+  };
+
   render() {
     return (
-      <Container containerStyle={styles.screenContainer}>
-        <ScrollView style={styles.scrollView}>
-          {this.renderTitle()}
-          {this.renderBlurCardShowCase()}
-          {this.renderAnimatableText()}
+      <Container>
+        <ScrollView
+          style={styles.scrollView}
+          ref={ref => {
+            this.scrollViewRef = ref;
+          }}>
+          <View style={styles.screenContainer}>
+            {this.renderTitle()}
+            {/* {this.renderBlurCardShowCase()} */}
+            {/* {this.renderAnimatableText()} */}
+            {this.renderReanimatedProgressBar()}
+          </View>
         </ScrollView>
       </Container>
     );
@@ -87,12 +150,20 @@ export default class DeveloperScreen extends Component {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    padding: Spacing.normal,
+    padding: Spacing.small,
   },
   scrollView: {
     flex: 1,
   },
   showcaseContainer: {
-    marginTop: Spacing.normal,
+    marginTop: Spacing.small,
+  },
+  kittenCardHeaderText: {
+    marginHorizontal: 24,
+    marginVertical: 16,
+  },
+  kittenCardHeaderImage: {
+    flex: 1,
+    height: 192,
   },
 });

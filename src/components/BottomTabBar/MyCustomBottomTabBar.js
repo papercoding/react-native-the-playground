@@ -118,7 +118,7 @@ function MyCustomBottomTabBar(props) {
       setToastMessage('Developer mode is activated ! 🥳');
       setTimeout(() => {
         navigateToDeveloperScreen();
-      }, 2000);
+      }, 1500);
     }
     if (!timerID.current) {
       timerID.current = setTimeout(() => {

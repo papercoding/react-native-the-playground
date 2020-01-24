@@ -18,6 +18,8 @@ import MyCustomBottomTabBar from './components/BottomTabBar/MyCustomBottomTabBar
 import NetworkStatus from './hooks/NetworkStatus';
 import {TabBarIconWithBadge} from './components/BottomTabBar/MyCustomBottomTabBar';
 import DeveloperScreen from './screens/Developer';
+import {PlaygroundScreen} from './screens/Developer/Playground';
+import TextStyles from './themes/TextStyles';
 
 const SHOW_TAB_BAR_LABEL = true;
 
@@ -26,6 +28,7 @@ export const SCREEN_STACK_ROUTE_NAME = {
   Notifications: 'Notifications',
   Settings: 'Settings',
   Developer: 'Developer',
+  Playground: 'Playground',
 };
 
 export const BOTTOM_TAB_ROUTE_NAME = {
@@ -47,6 +50,12 @@ const HomeStackNavigator = createStackNavigator(
         title: 'Developer',
       },
     },
+    [SCREEN_STACK_ROUTE_NAME.Playground]: {
+      screen: PlaygroundScreen,
+      navigationOptions: {
+        title: 'The Playground',
+      },
+    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,
@@ -59,6 +68,9 @@ const HomeStackNavigator = createStackNavigator(
         headerTintColor: theme.colors.headerBarTintColor,
         headerStyle: {
           backgroundColor: theme.colors.headerBar,
+        },
+        headerTitleStyle: {
+          ...TextStyles.headerBarTitle,
         },
       };
     },

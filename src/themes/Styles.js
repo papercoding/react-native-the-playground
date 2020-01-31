@@ -21,7 +21,5 @@ export function elevationShadowStyle(elevation, position = 'bottom') {
 export const commonStyles = StyleSheet.create({
   fullScreen: {
     flex: 1,
-    width: '100%',
-    height: '100%',
   },
 });

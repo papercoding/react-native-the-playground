@@ -33,7 +33,6 @@ function runTiming(clock, value, dest) {
 
   return block([
     cond(clockRunning(clock), 0, [
-      // If the clock isn't running we reset all the animation params and start the clock
       set(state.finished, 0),
       set(state.time, 0),
       set(state.position, value),
@@ -41,11 +40,8 @@ function runTiming(clock, value, dest) {
       set(config.toValue, dest),
       startClock(clock),
     ]),
-    // we run the step here that is going to update position
     timing(clock, state, config),
-    // if the animation is over we stop the clock
     cond(state.finished, debug('stop clock', stopClock(clock))),
-    // we made the block return the updated position
     state.position,
   ]);
 }

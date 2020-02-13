@@ -11,7 +11,7 @@ import {SCREEN_WIDTH, Spacing} from '../../themes';
 import {scale} from 'react-native-size-matters';
 import {connect} from 'react-redux';
 import TextStyles from '../../themes/TextStyles';
-import {SCREEN_STACK_ROUTE_NAME} from '../../App';
+import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation/index';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;

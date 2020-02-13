@@ -8,7 +8,7 @@ import CustomText from '../../components/CustomText';
 import TextStyles from '../../themes/TextStyles';
 import {Spacing} from '../../themes';
 import BlurCard from '../../components/BlurCard';
-import {SCREEN_STACK_ROUTE_NAME} from '../../App';
+import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation/index';
 import ReanimatedProgressBarDemo from './components/ReanimatedExamples/ProgressBar';
 
 const ShowCase = ({label, children}) => {
@@ -41,13 +41,11 @@ export default class DeveloperScreen extends Component {
 
   onMomentumScrollBegin = () => {
     this.props.navigation.setParams({isShownBottomTabBar: false});
-
-  }
+  };
 
   onMomentumScrollEnd = () => {
     this.props.navigation.setParams({isShownBottomTabBar: true});
-
-  }
+  };
 
   renderTitle = () => (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -107,8 +105,7 @@ export default class DeveloperScreen extends Component {
             this.scrollViewRef = ref;
           }}
           onMomentumScrollBegin={this.onMomentumScrollBegin}
-          onMomentumScrollEnd={this.onMomentumScrollEnd}
-          >
+          onMomentumScrollEnd={this.onMomentumScrollEnd}>
           <View style={styles.screenContainer}>
             {this.renderTitle()}
             {/* {this.renderBlurCardShowCase()} */}

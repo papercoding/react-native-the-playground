@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, ScrollView, Button as RNButton} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Button} from 'react-native-paper';
 
@@ -8,8 +8,8 @@ import CustomText from '../../components/CustomText';
 import TextStyles from '../../themes/TextStyles';
 import {Spacing} from '../../themes';
 import BlurCard from '../../components/BlurCard';
-import ProgressBar from './Components/ProgressBar';
 import {SCREEN_STACK_ROUTE_NAME} from '../../App';
+import ReanimatedProgressBarDemo from './components/ReanimatedExamples/ProgressBar';
 
 const ShowCase = ({label, children}) => {
   return (
@@ -35,35 +35,18 @@ export default class DeveloperScreen extends Component {
     ),
   });
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      progress: 0,
-      visible: true,
-    };
+  componentDidMount() {
+    // this.props.navigation.setParams({isShownBottomTabBar: false});
   }
 
-  fetchData = () => {
-    let progress = 0;
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.timeout = setInterval(() => {
-      this.setState({
-        progress,
-      });
-      progress += 0.1;
-      if (progress > 1) {
-        clearInterval(this.timeout);
-      }
-    }, 1000);
-  };
+  onMomentumScrollBegin = () => {
+    this.props.navigation.setParams({isShownBottomTabBar: false});
 
-  componentDidMount() {
-    if (this.scrollViewRef) {
-      this.scrollViewRef.scrollToEnd();
-    }
-    this.fetchData();
+  }
+
+  onMomentumScrollEnd = () => {
+    this.props.navigation.setParams({isShownBottomTabBar: true});
+
   }
 
   renderTitle = () => (
@@ -110,20 +93,7 @@ export default class DeveloperScreen extends Component {
   renderReanimatedProgressBar = () => {
     return (
       <ShowCase label="Reanimated Progress Bar">
-        <View>
-          {this.state.visible && <ProgressBar progress={this.state.progress} />}
-          <RNButton
-            onPress={() => {
-              this.setState({progress: 0});
-              this.fetchData();
-            }}
-            title="RESET"
-          />
-          <RNButton
-            onPress={() => this.setState(prev => ({visible: !prev.visible}))}
-            title="TOGGLE VISIBILITY"
-          />
-        </View>
+        <ReanimatedProgressBarDemo />
       </ShowCase>
     );
   };
@@ -135,12 +105,29 @@ export default class DeveloperScreen extends Component {
           style={styles.scrollView}
           ref={ref => {
             this.scrollViewRef = ref;
-          }}>
+          }}
+          onMomentumScrollBegin={this.onMomentumScrollBegin}
+          onMomentumScrollEnd={this.onMomentumScrollEnd}
+          >
           <View style={styles.screenContainer}>
             {this.renderTitle()}
             {/* {this.renderBlurCardShowCase()} */}
             {/* {this.renderAnimatableText()} */}
-            {this.renderReanimatedProgressBar()}
+            {/* {this.renderReanimatedProgressBar()} */}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
+            {this.renderBlurCardShowCase()}
           </View>
         </ScrollView>
       </Container>

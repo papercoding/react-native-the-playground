@@ -123,9 +123,11 @@ const MainAppBottomTab = createBottomTabNavigator(
   {
     [BOTTOM_TAB_ROUTE_NAME.HomeTab]: {
       screen: HomeStackNavigator,
-      navigationOptions: {
-        tabBarLabel: 'Home',
-        tabBarIcon: ({tintColor}) => <TabBarIconWithBadge name="home" tintColor={tintColor} />,
+      navigationOptions: () => {
+        return {
+          tabBarLabel: 'Home',
+          tabBarIcon: ({tintColor}) => <TabBarIconWithBadge name="home" tintColor={tintColor} />,
+        };
       },
     },
     [BOTTOM_TAB_ROUTE_NAME.NotificationsTab]: {

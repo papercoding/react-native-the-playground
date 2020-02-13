@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {useState, useEffect, useRef} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {useState, useEffect} from 'react';
+import {View, StyleSheet, Text, Animated} from 'react-native';
 import posed from 'react-native-pose';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {withTheme} from 'react-native-paper';
-import _ from 'lodash';
 
 import CustomText from '../CustomText';
 import {SCREEN_WIDTH, Spacing} from '../../themes';
@@ -21,6 +20,11 @@ const SpotLight = posed.View({
   route0: {x: tabWidth * (transformFactor + 0), transition: {x: {type: 'spring'}}},
   route1: {x: tabWidth * (transformFactor + 2), transition: {x: {type: 'spring'}}},
   route2: {x: tabWidth * (transformFactor + 4), transition: {x: {type: 'spring'}}},
+});
+
+const AnimatedTabBar = posed.View({
+  slideOutDown: {y: scale(58), transition: {y: {type: 'spring'}}},
+  slideInUp: {y: scale(0), transition: {y: {type: 'spring'}}},
 });
 
 const styles = StyleSheet.create({
@@ -99,17 +103,18 @@ export const TabBarIcon = ({tintColor, name, badgeCount = 0}) => {
 export const TabBarIconWithBadge = connect(state => ({badgeCount: state.badgeCount}))(TabBarIcon);
 
 function MyCustomBottomTabBar(props) {
-  const timerID = useRef(null);
   const [toastMessage, setToastMessage] = useState('');
   const [isShownToast, setIsShownToast] = useState(false);
   const [countHomeTabClick, setCountHomeTabClick] = useState(0);
+  // Props
   const {renderIcon, getLabelText, onTabPress, getAccessibilityLabel, navigation, theme} = props;
   const {colors} = theme;
+  // Extract data
   const {routes, index: activeRouteIndex} = navigation.state;
-
-  const navigateToDeveloperScreen = () => {
-    navigation.navigate(SCREEN_STACK_ROUTE_NAME.Developer);
-  };
+  const activeRoute = routes[activeRouteIndex];
+  const currentScreen = activeRoute.routes[activeRoute.index];
+  // Logic
+  let isShownBottomTabBar = currentScreen.params ? currentScreen.params.isShownBottomTabBar : true;
 
   useEffect(() => {
     if (countHomeTabClick === 5) {
@@ -117,57 +122,61 @@ function MyCustomBottomTabBar(props) {
       setIsShownToast(true);
       setToastMessage('Developer mode is activated ! 🥳');
       setTimeout(() => {
-        navigateToDeveloperScreen();
+        setIsShownToast(false);
+        navigation.navigate(SCREEN_STACK_ROUTE_NAME.Developer);
       }, 1500);
     }
-    if (!timerID.current) {
-      timerID.current = setTimeout(() => {
-        setIsShownToast(false);
-      }, 1200);
-    } else {
-      clearTimeout(timerID.current);
-      timerID.current = setTimeout(() => {
-        setIsShownToast(false);
-      }, 1200);
-    }
-  }, [countHomeTabClick]);
+  }, [countHomeTabClick, navigation]);
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.bottomTabBar}]}>
-      {isShownToast && (
-        <View style={styles.toastMessageContainer}>
-          <View style={styles.toastMessage}>
-            <Text style={TextStyles.normalText}>{toastMessage}</Text>
+    <View style={{backgroundColor: colors.background}}>
+      <AnimatedTabBar
+        style={[
+          styles.container,
+          {backgroundColor: colors.bottomTabBar},
+          {
+            position: isShownBottomTabBar ? 'relative' : 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+          },
+        ]}
+        pose={isShownBottomTabBar ? 'slideInUp' : 'slideOutDown'}>
+        {isShownToast && (
+          <View style={styles.toastMessageContainer}>
+            <View style={styles.toastMessage}>
+              <Text style={TextStyles.normalText}>{toastMessage}</Text>
+            </View>
           </View>
+        )}
+        <View style={StyleSheet.absoluteFillObject}>
+          <SpotLight
+            style={[styles.sportLight, {backgroundColor: colors.activeBottomTabBar}]}
+            pose={`route${activeRouteIndex}`}
+          />
         </View>
-      )}
-      <View style={StyleSheet.absoluteFillObject}>
-        <SpotLight
-          style={[styles.sportLight, {backgroundColor: colors.activeBottomTabBar}]}
-          pose={`route${activeRouteIndex}`}
-        />
-      </View>
-      {routes.map((route, routeIndex) => {
-        const isRouteActive = routeIndex === activeRouteIndex;
-        const tintColor = isRouteActive ? colors.activeBottomTabBar : colors.inactiveBottomTabBar;
-        return (
-          <TouchableBounce
-            key={routeIndex}
-            style={styles.tabButton}
-            onPress={() => {
-              if (__DEV__) {
-                setCountHomeTabClick(route.key === 'HomeTab' ? countHomeTabClick + 1 : 0);
-              }
-              onTabPress({route});
-            }}
-            accessibilityLabel={getAccessibilityLabel({route})}>
-            {renderIcon({route, focused: isRouteActive, tintColor})}
-            <CustomText style={[styles.bottomLabel, {color: tintColor}]}>
-              {getLabelText({route})}
-            </CustomText>
-          </TouchableBounce>
-        );
-      })}
+        {routes.map((route, routeIndex) => {
+          const isRouteActive = routeIndex === activeRouteIndex;
+          const tintColor = isRouteActive ? colors.activeBottomTabBar : colors.inactiveBottomTabBar;
+          return (
+            <TouchableBounce
+              key={routeIndex}
+              style={styles.tabButton}
+              onPress={() => {
+                if (__DEV__) {
+                  setCountHomeTabClick(route.key === 'HomeTab' ? countHomeTabClick + 1 : 0);
+                }
+                onTabPress({route});
+              }}
+              accessibilityLabel={getAccessibilityLabel({route})}>
+              {renderIcon({route, focused: isRouteActive, tintColor})}
+              <CustomText style={[styles.bottomLabel, {color: tintColor}]}>
+                {getLabelText({route})}
+              </CustomText>
+            </TouchableBounce>
+          );
+        })}
+      </AnimatedTabBar>
     </View>
   );
 }

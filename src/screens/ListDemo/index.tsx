@@ -103,11 +103,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const SLIDER_FIRST_ITEM = 0;
+const SLIDER_FIRST_ITEM = 1;
 
 const ListDemoScreen = () => {
   const sliderRef = useRef(undefined);
-  const [activeIndex, setActiveIndex] = useState(SLIDER_FIRST_ITEM);
 
   const _renderItemWithParallax = ({item, index}, parallaxProps) => {
     return (
@@ -140,21 +139,7 @@ const ListDemoScreen = () => {
         autoplay={true}
         autoplayDelay={500}
         autoplayInterval={3000}
-        onSnapToItem={index => setActiveIndex(index)}
       />
-      <Pagination
-        dotsLength={ENTRIES1.length}
-        activeDotIndex={activeIndex}
-        containerStyle={styles.paginationContainer}
-        dotColor={'rgba(255, 255, 255, 0.92)'}
-        dotStyle={styles.paginationDot}
-        inactiveDotColor={colors.black}
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-        carouselRef={sliderRef.current}
-        tappableDots={!!sliderRef.current}
-      />
-      <View style={{height: 100, backgroundColor: 'pink'}} />
     </Container>
   );
 };

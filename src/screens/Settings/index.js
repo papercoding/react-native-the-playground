@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {StyleSheet, Platform, StatusBar} from 'react-native';
-
+import React, { Component } from 'react';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 import Container from '../../components/Container';
-import {AppContext} from '../../context';
 import ThemedCard from '../../components/ThemedCard';
+import { AppContext } from '../../Context';
+
 
 class SettingsScreen extends Component {
   static navigationOptions = {

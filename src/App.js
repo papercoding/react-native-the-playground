@@ -6,8 +6,8 @@ import {View, StatusBar, Platform} from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 import SplashScreen from 'react-native-splash-screen';
 
-import {AppContextProvider, AppConsumer} from './context';
-import NetworkStatus from './hooks/NetworkStatus';
+import {AppContextProvider, AppConsumer} from './Context';
+import NetworkStatus from './Hooks/NetworkStatus';
 import Navigation from './Navigation';
 
 const App = () => {

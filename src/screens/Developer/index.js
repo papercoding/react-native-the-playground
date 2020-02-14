@@ -9,7 +9,7 @@ import TextStyles from '../../themes/TextStyles';
 import {Spacing} from '../../themes';
 import BlurCard from '../../components/BlurCard';
 import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation/index';
-import ReanimatedProgressBarDemo from './components/ReanimatedExamples/ProgressBar';
+import ReanimatedProgressBarDemo from './Components/ReanimatedExamples/ProgressBar';
 
 const ShowCase = ({label, children}) => {
   return (

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Container from '../../../components/Container';
-import Accordion from '../components/ReanimatedExamples/Accordion';
-import SnappableDemo from '../components/ReanimatedExamples/Snappable';
-import SpotifyAnimatedScrollHeader from '../components/CanBeItDoneInReactNative/SpotifyAnimatedHeader';
+import SpotifyAnimatedHeader from '../Components/CanBeItDoneInReactNative/SpotifyAnimatedHeader';
+import SnappableDemo from '../Components/ReanimatedExamples/Snappable';
+import Accordion from '../Components/ReanimatedExamples/Accordion';
 
 export class PlaygroundScreen extends Component {
   static navigationOptions = {
@@ -19,7 +19,7 @@ export class PlaygroundScreen extends Component {
       <Container>
         {/* <Accordion /> */}
         {/* <SnappableDemo /> */}
-        <SpotifyAnimatedScrollHeader />
+        <SpotifyAnimatedHeader />
       </Container>
     );
   }

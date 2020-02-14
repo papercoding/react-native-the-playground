@@ -14,7 +14,7 @@ const BlurCard = ({containerStyle, theme, item, index, onPress = () => {}}) => {
   const blurType = theme.dark ? 'dark' : 'light';
 
   const onBlurItemPress = () => {
-    onPress(index);
+    onPress(item);
   };
 
   return (

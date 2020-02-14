@@ -12,6 +12,7 @@ import MyCustomBottomTabBar from '../components/BottomTabBar/MyCustomBottomTabBa
 import {TabBarIconWithBadge} from '../components/BottomTabBar/MyCustomBottomTabBar';
 import DeveloperScreen from '../screens/Developer';
 import {PlaygroundScreen} from '../screens/Developer/Playground';
+import ListDemoScreen from '../screens/ListDemo';
 import TextStyles from '../themes/TextStyles';
 
 const SHOW_TAB_BAR_LABEL = true;
@@ -22,6 +23,7 @@ const SCREEN_STACK_ROUTE_NAME = {
   Settings: 'Settings',
   Developer: 'Developer',
   Playground: 'Playground',
+  ListDemo: 'ListDemo',
 };
 
 const BOTTOM_TAB_ROUTE_NAME = {
@@ -47,6 +49,12 @@ const HomeStackNavigator = createStackNavigator(
       screen: PlaygroundScreen,
       navigationOptions: {
         title: 'The Playground',
+      },
+    },
+    [SCREEN_STACK_ROUTE_NAME.ListDemo]: {
+      screen: ListDemoScreen,
+      navigationOptions: {
+        title: 'List Demo',
       },
     },
   },

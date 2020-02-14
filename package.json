@@ -8,12 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "rc-start": "npm start -- --reset-cache",
-    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
-    "clean-start": "npm run clean && npm run rc-start",
-    "fresh-install": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && npm cache clean && npm install",
-    "fresh-start": "npm run fresh-install && npm run rc-start",
-    "tron": "node_modules/.bin/reactotron"
+    "staging_android": "ENVFILE=.env.staging react-native run-android",
+    "staging_ios": "ENVFILE=.env.staging react-native run-ios",
+    "prod_android": "ENVFILE=.env.production react-native run-android",
+    "prod_ios": "ENVFILE=.env.production react-native run-ios"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.3",

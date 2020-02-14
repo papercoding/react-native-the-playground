@@ -106,8 +106,6 @@ const styles = StyleSheet.create({
 const SLIDER_FIRST_ITEM = 1;
 
 const ListDemoScreen = () => {
-  const sliderRef = useRef(undefined);
-
   const _renderItemWithParallax = ({item, index}, parallaxProps) => {
     return (
       <ParallaxSliderItem
@@ -122,7 +120,6 @@ const ListDemoScreen = () => {
   return (
     <Container>
       <Carousel
-        ref={sliderRef}
         data={ENTRIES1}
         renderItem={_renderItemWithParallax}
         sliderWidth={sliderWidth}

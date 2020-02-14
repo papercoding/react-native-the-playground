@@ -1,24 +1,12 @@
-import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
 import Container from '../../components/Container';
 import ThemedCard from '../../components/ThemedCard';
-import { AppContext } from '../../Context';
-
+import {AppContext} from '../../Context';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
     title: 'Settings',
   };
-
-  componentDidMount() {
-    this.navigationListener = this.props.navigation.addListener('didFocus', () => {
-      const {theme} = this.context;
-      Platform.OS === 'android' &&
-        StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
-      Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
-      Platform.OS === 'android' && StatusBar.setTranslucent(false);
-    });
-  }
 
   onThemedCardPress = theme => {
     this.context.updateTheme(theme);
@@ -45,8 +33,6 @@ class SettingsScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({});
 
 SettingsScreen.contextType = AppContext;
 export default SettingsScreen;

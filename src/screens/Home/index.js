@@ -12,6 +12,8 @@ import BlurCard from '../../components/BlurCard';
 import {LIST_HOME_ITEM} from './data';
 import {fetchNotifications} from '../../redux/actions/notifications';
 import {connect} from 'react-redux';
+import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation';
+import {AppContext} from '../../Context';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -36,11 +38,31 @@ class HomeScreen extends Component {
       Platform.OS === 'android' && StatusBar.setBackgroundColor('transparent', true);
       Platform.OS === 'android' && StatusBar.setTranslucent(true);
     });
+    this.navigationListener = this.props.navigation.addListener('willBlur', () => {
+      const {theme} = this.context;
+      console.tron.log('Notification - theme: ', theme.dark);
+      Platform.OS === 'android' &&
+        StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
+      Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
+      Platform.OS === 'android' && StatusBar.setTranslucent(false);
+    });
+  }
+
+  componentWillUnmount() {
+    this.navigationListener.remove();
   }
 
   handleScrollEvent = () => {};
 
-  onBlurItemPress = index => {};
+  onBlurItemPress = item => {
+    switch (item.id) {
+      case 100:
+        this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.ListDemo);
+        break;
+      default:
+        break;
+    }
+  };
 
   renderHomeHeaderBackground = () => {
     const scaleXBG = this.state.scrollY.interpolate({
@@ -163,5 +185,7 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
   fetchNotifications: () => dispatch(fetchNotifications()),
 });
+
+HomeScreen.contextType = AppContext;
 
 export default connect(null, mapDispatchToProps)(HomeScreen);

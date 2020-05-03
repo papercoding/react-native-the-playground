@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import useNetworkState from './useNetworkState';
 
-export default function NetworkStatus() {
+const useNetworkStatus = () => {
   const skipForTheFirstTime = useRef(true);
   const previousConnection = useRef();
   const isConnected = useNetworkState();
@@ -16,12 +16,11 @@ export default function NetworkStatus() {
     previousConnection.current = isConnected;
   }, [isConnected]);
 
-  if (
-    isConnected === null ||
-    (isConnected && skipForTheFirstTime.current) ||
+  return isConnected === null ||
+    (skipForTheFirstTime.current && isConnected) ||
     isConnected === previousConnection.current
-  ) {
-    return null;
-  }
-  return isConnected;
-}
+    ? null
+    : isConnected;
+};
+
+export default useNetworkStatus;

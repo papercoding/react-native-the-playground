@@ -4,9 +4,9 @@ import DropdownAlert from 'react-native-dropdownalert';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {AppConsumer, AppContextProvider} from './Context';
-import useDropdownAlertNetwork from './Hooks/useDropdownAlertNetwork';
-import Navigation from './Navigation';
+import {AppConsumer, AppContextProvider} from './context';
+import useDropdownAlertNetwork from './hooks/useDropdownAlertNetwork';
+import Navigation from './navigation';
 import {persistor, store} from './redux/store';
 
 const App = () => {

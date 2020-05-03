@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button} from 'react-native-paper';
-
+import BlurCard from '../../components/BlurCard';
 import Container from '../../components/Container';
 import CustomText from '../../components/CustomText';
-import TextStyles from '../../themes/TextStyles';
+import LinearGradientCard from '../../components/LinearGradientCard/LinearGradientCard';
+import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/index';
 import {Spacing} from '../../themes';
-import BlurCard from '../../components/BlurCard';
-import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation/index';
-import ReanimatedProgressBarDemo from './Components/ReanimatedExamples/ProgressBar';
+import TextStyles from '../../themes/TextStyles';
 
 const ShowCase = ({label, children}) => {
   return (
@@ -34,10 +32,6 @@ export default class DeveloperScreen extends Component {
       </Button>
     ),
   });
-
-  componentDidMount() {
-    // this.props.navigation.setParams({isShownBottomTabBar: false});
-  }
 
   onMomentumScrollBegin = () => {
     this.props.navigation.setParams({isShownBottomTabBar: false});
@@ -67,35 +61,6 @@ export default class DeveloperScreen extends Component {
     );
   };
 
-  renderAnimatableText = () => {
-    return (
-      <ShowCase label="react-native-animatable:">
-        {/* ====== Pulse ====== */}
-        <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite">
-          <CustomText style={TextStyles.body2}>{'❤️'}</CustomText>
-        </Animatable.View>
-        {/* ====== bounceInLeft ====== */}
-        <Animatable.View
-          style={{marginTop: Spacing.normal}}
-          animation="bounceInLeft"
-          easing="ease-out"
-          iterationCount="5">
-          <Button icon="camera" mode="contained" onPress={() => {}}>
-            Press me
-          </Button>
-        </Animatable.View>
-      </ShowCase>
-    );
-  };
-
-  renderReanimatedProgressBar = () => {
-    return (
-      <ShowCase label="Reanimated Progress Bar">
-        <ReanimatedProgressBarDemo />
-      </ShowCase>
-    );
-  };
-
   render() {
     return (
       <Container>
@@ -108,23 +73,11 @@ export default class DeveloperScreen extends Component {
           onMomentumScrollEnd={this.onMomentumScrollEnd}>
           <View style={styles.screenContainer}>
             {this.renderTitle()}
-            {/* {this.renderBlurCardShowCase()} */}
-            {/* {this.renderAnimatableText()} */}
-            {/* {this.renderReanimatedProgressBar()} */}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
-            {this.renderBlurCardShowCase()}
+            <LinearGradientCard
+              cardImage={require('../../assets/images/ic_flask.png')}
+              title={'DEMO TITLE'}
+              colors={['#FBD786', '#f7797d']}
+            />
           </View>
         </ScrollView>
       </Container>

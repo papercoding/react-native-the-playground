@@ -1,17 +1,16 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, Animated} from 'react-native';
+import {useEffect, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {withTheme} from 'react-native-paper';
 import posed from 'react-native-pose';
+import {scale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-import {withTheme} from 'react-native-paper';
-
-import CustomText from '../CustomText';
-import {SCREEN_WIDTH, Spacing} from '../../themes';
-import {scale} from 'react-native-size-matters';
 import {connect} from 'react-redux';
+import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/index';
+import {SCREEN_WIDTH, Spacing} from '../../themes';
 import TextStyles from '../../themes/TextStyles';
-import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation/index';
+import CustomText from '../CustomText';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;

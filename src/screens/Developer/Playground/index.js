@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Container from '../../../components/Container';
 import SpotifyAnimatedHeader from '../Components/CanBeItDoneInReactNative/SpotifyAnimatedHeader';
-import SnappableDemo from '../Components/ReanimatedExamples/Snappable';
-import Accordion from '../Components/ReanimatedExamples/Accordion';
 
 export class PlaygroundScreen extends Component {
   static navigationOptions = {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Container from '../../components/Container';
 import ThemedCard from '../../components/ThemedCard';
-import {AppContext} from '../../Context';
+import {AppContext} from '../../context';
 
 class SettingsScreen extends Component {
   static navigationOptions = {

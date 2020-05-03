@@ -3,7 +3,10 @@ import {View} from 'react-native';
 import {withTheme} from 'react-native-paper';
 import {commonStyles} from '../../themes';
 
-const Container = function({containerStyle = {}, children, theme}) {
+/**
+ * Pure View Container with theme using background
+ */
+const Container = ({containerStyle = {}, children, theme}) => {
   return (
     <View
       style={[

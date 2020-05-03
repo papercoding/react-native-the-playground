@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, FlatList, Animated, Platform, StatusBar} from 'react-native';
+import {Animated, FlatList, Platform, StatusBar, StyleSheet} from 'react-native';
 import {scale} from 'react-native-size-matters';
-
-import Container from '../../components/Container';
-import {commonStyles, SCREEN_WIDTH} from '../../themes';
-import HomeHeaderBackground from './HomeHeaderBackground';
 import {SafeAreaView} from 'react-navigation';
-import HomeHeaderTitle from './HomeHeaderTitle';
-import BlurCard from '../../components/BlurCard';
-
-import {LIST_HOME_ITEM} from './data';
-import {fetchNotifications} from '../../redux/actions/notifications';
 import {connect} from 'react-redux';
-import {SCREEN_STACK_ROUTE_NAME} from '../../Navigation';
-import {AppContext} from '../../Context';
+import BlurCard from '../../components/BlurCard';
+import Container from '../../components/Container';
+import {AppContext} from '../../context';
+import {fetchNotifications} from '../../redux/actions/notifications';
+import {commonStyles, SCREEN_WIDTH} from '../../themes';
+import {LIST_HOME_ITEM} from './data';
+import HomeHeaderBackground from './HomeHeaderBackground';
+import HomeHeaderTitle from './HomeHeaderTitle';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -57,7 +54,6 @@ class HomeScreen extends Component {
   onBlurItemPress = item => {
     switch (item.id) {
       case 100:
-        this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.ListDemo);
         break;
       default:
         break;
@@ -188,4 +184,7 @@ const mapDispatchToProps = dispatch => ({
 
 HomeScreen.contextType = AppContext;
 
-export default connect(null, mapDispatchToProps)(HomeScreen);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(HomeScreen);

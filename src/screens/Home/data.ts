@@ -1,22 +1,32 @@
-export const LIST_HOME_ITEM = [
+import {FastImageSource} from 'react-native-fast-image';
+
+export interface ListHomeItemProps {
+  id: string;
+  title: string;
+  imageSource: number | FastImageSource | any;
+}
+
+const LIST_HOME_ITEM: Array<ListHomeItemProps> = [
   {
-    id: 100,
+    id: 'UIConcepts',
     title: 'UI Concepts',
     imageSource: require('../../assets/images/ic_optometry.png'),
   },
   {
-    id: 101,
+    id: 'Animations',
     title: 'Animations',
     imageSource: require('../../assets/images/ic_nutritionist.png'),
   },
   {
-    id: 102,
+    id: 'Showcase',
     title: 'Showcase',
     imageSource: require('../../assets/images/ic_ophtalmology.png'),
   },
   {
-    id: 103,
+    id: 'HaveFun',
     title: 'Have Fun',
     imageSource: require('../../assets/images/ic_flask.png'),
   },
 ];
+
+export {LIST_HOME_ITEM};

@@ -74,9 +74,16 @@ export default class DeveloperScreen extends Component {
           <View style={styles.screenContainer}>
             {this.renderTitle()}
             <LinearGradientCard
+              containerStyle={{marginTop: 16}}
               cardImage={require('../../assets/images/ic_flask.png')}
               title={'DEMO TITLE'}
               colors={['#FBD786', '#f7797d']}
+            />
+            <LinearGradientCard
+              containerStyle={{marginTop: 16}}
+              cardImage={require('../../assets/images/ic_helicopter.png')}
+              title={'DEMO TITLE'}
+              colors={['#FC5C7D', '#6A82FB']}
             />
           </View>
         </ScrollView>

@@ -1,11 +1,20 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState} from 'react';
+import Container from '../../components/Container';
+import CustomText from '../../components/CustomText';
+import {ShowcaseDataItemProps} from './ShowcaseScreen';
 
-const ShowcaseWrapperScreen = () => {
+interface ScreenProps {
+  navigation: any;
+  route: any;
+}
+
+const ShowcaseWrapperScreen: React.FC<ScreenProps> = ({navigation}) => {
+  const [item] = useState<ShowcaseDataItemProps>({...navigation.getParam('item')});
+
   return (
-    <View>
-      <Text />
-    </View>
+    <Container>
+      <CustomText>{item.title}</CustomText>
+    </Container>
   );
 };
 

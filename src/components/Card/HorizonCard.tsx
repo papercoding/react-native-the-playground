@@ -2,7 +2,6 @@ import React from 'react';
 import {ImageStyle, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
 import FastImage, {FastImageSource} from 'react-native-fast-image';
 import {scale} from 'react-native-size-matters';
-import {Spacing} from '../../themes';
 import TextStyles from '../../themes/TextStyles';
 
 interface HorizonCard {
@@ -37,7 +36,9 @@ const HorizonCard: React.FC<HorizonCard> = ({
 const style = StyleSheet.create<Styles>({
   container: {
     flexDirection: 'row',
-    padding: scale(Spacing.normal),
+    padding: scale(12),
+    paddingLeft: scale(16),
+    paddingRight: scale(16),
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -46,7 +47,7 @@ const style = StyleSheet.create<Styles>({
   },
   image: {
     aspectRatio: 1 / 1,
-    width: scale(64),
+    width: scale(52),
     height: undefined,
   },
 });

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import BlurCard from '../../components/BlurCard';
 import Container from '../../components/Container';
 import {AppContext} from '../../context';
+import {SCREEN_STACK_ROUTE_NAME} from '../../navigation';
 import {fetchNotifications} from '../../redux/actions/notifications';
 import {commonStyles, SCREEN_WIDTH} from '../../themes';
 import {LIST_HOME_ITEM} from './data';
@@ -53,7 +54,14 @@ class HomeScreen extends Component {
 
   onBlurItemPress = item => {
     switch (item.id) {
-      case 100:
+      case 'UIConcepts':
+        break;
+      case 'Animations':
+        break;
+      case 'Showcase':
+        this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Showcase);
+        break;
+      case 'HaveFun':
         break;
       default:
         break;

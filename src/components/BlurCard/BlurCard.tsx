@@ -1,19 +1,27 @@
 import {BlurView} from '@react-native-community/blur';
 import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import FastImage, {FastImageSource} from 'react-native-fast-image';
 import {withTheme} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+import {IThemeMode} from '../../themes/Colors/types';
 import TextStyles from '../../themes/TextStyles';
 import ThemedText from '../CustomText/CustomText';
 
-const BlurCard = ({containerStyle, theme, item, index, onPress = () => {}}) => {
-  const {title, imageSource} = item;
+type Props = {
+  containerStyle: object;
+  theme: IThemeMode;
+  title: string;
+  imageSource: number | FastImageSource;
+  onPress: () => void;
+};
+
+const BlurCard: React.FC<Props> = ({containerStyle, theme, title, imageSource, onPress}) => {
   const blurType = theme.dark ? 'dark' : 'light';
 
   const onBlurItemPress = () => {
-    onPress(item);
+    onPress();
   };
 
   return (

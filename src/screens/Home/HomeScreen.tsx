@@ -1,33 +1,45 @@
 import React, {Component} from 'react';
 import {Animated, FlatList, Platform, StatusBar, StyleSheet} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {SafeAreaView} from 'react-navigation';
+import {NavigationEventSubscription, SafeAreaView} from 'react-navigation';
+import {NavigationStackProp} from 'react-navigation-stack';
 import {connect} from 'react-redux';
-import BlurCard from '../../components/BlurCard';
+import BlurCard from '../../components/BlurCard/BlurCard';
 import Container from '../../components/Container';
 import {AppContext} from '../../context';
 import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/constants';
 import {fetchNotifications} from '../../redux/actions/notifications';
 import {commonStyles, SCREEN_WIDTH} from '../../themes';
-import {LIST_HOME_ITEM} from './data';
+import {ListHomeItemProps, LIST_HOME_ITEM} from './data';
 import HomeHeaderBackground from './HomeHeaderBackground';
 import HomeHeaderTitle from './HomeHeaderTitle';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-class HomeScreen extends Component {
+type Props = {
+  navigation: NavigationStackProp;
+  fetchNotifications: Function;
+};
+
+type State = {
+  scrollY: any;
+  loading: boolean;
+};
+
+class HomeScreen extends Component<Props, State> {
   static navigationOptions = {
     title: 'The Playground',
     header: null,
   };
 
-  constructor(props: Readonly<{}>) {
+  navigationListener!: NavigationEventSubscription;
+
+  constructor(props: Props) {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0.1),
       loading: false,
     };
-    this.listItem = LIST_HOME_ITEM;
   }
 
   componentDidMount() {
@@ -38,7 +50,6 @@ class HomeScreen extends Component {
     });
     this.navigationListener = this.props.navigation.addListener('willBlur', () => {
       const {theme} = this.context;
-      console.tron.log('Notification - theme: ', theme.dark);
       Platform.OS === 'android' &&
         StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
       Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
@@ -51,22 +62,6 @@ class HomeScreen extends Component {
   }
 
   handleScrollEvent = () => {};
-
-  onBlurItemPress = (item: {id: any}) => {
-    switch (item.id) {
-      case 'UIConcepts':
-        break;
-      case 'Animations':
-        break;
-      case 'Showcase':
-        this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Showcase);
-        break;
-      case 'HaveFun':
-        break;
-      default:
-        break;
-    }
-  };
 
   renderHomeHeaderBackground = () => {
     const scaleXBG = this.state.scrollY.interpolate({
@@ -127,14 +122,31 @@ class HomeScreen extends Component {
     );
   };
 
-  renderBlurItem = ({item, index}) => {
+  renderBlurItem = ({item, index}: {item: ListHomeItemProps; index: number}) => {
     const calculatedMargin = index % 2 === 0 ? {marginRight: scale(8)} : {marginLeft: scale(8)};
+
+    const onBlurItemPress = () => {
+      switch (item.id) {
+        case 'UIConcepts':
+          break;
+        case 'Animations':
+          break;
+        case 'Showcase':
+          this.props.navigation.navigate(SCREEN_STACK_ROUTE_NAME.Showcase);
+          break;
+        case 'HaveFun':
+          break;
+        default:
+          break;
+      }
+    };
+
     return (
       <BlurCard
         containerStyle={[{flex: 1}, calculatedMargin]}
-        item={item}
-        index={index}
-        onPress={this.onBlurItemPress}
+        title={item.title}
+        imageSource={item.imageSource}
+        onPress={onBlurItemPress}
       />
     );
   };
@@ -146,7 +158,7 @@ class HomeScreen extends Component {
         contentContainerStyle={styles.flatListContent}
         scrollEventThrottle={1}
         showsVerticalScrollIndicator={false}
-        data={this.listItem}
+        data={LIST_HOME_ITEM}
         numColumns={2}
         renderItem={this.renderBlurItem}
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: this.state.scrollY}}}], {
@@ -186,13 +198,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch: (arg0: (dispatch: any) => Promise<any>) => any) => ({
-  fetchNotifications: () => dispatch(fetchNotifications()),
-});
+const mapDispatch = {
+  fetchNotifications: () => fetchNotifications(),
+};
 
 HomeScreen.contextType = AppContext;
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatch,
 )(HomeScreen);

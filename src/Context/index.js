@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {getThemeMode} from '../themes/Colors';
+import {getThemeMode} from '../themes/Colors/Colors';
 import {getItem, LocalStorageKey, saveItem} from '../utils/LocalStorage';
 
 const Context = React.createContext();

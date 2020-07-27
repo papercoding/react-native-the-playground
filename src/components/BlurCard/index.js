@@ -1,13 +1,12 @@
-import React from 'react';
-import {View, StyleSheet, Platform} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import {scale} from 'react-native-size-matters';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+import React from 'react';
+import {Platform, StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {withTheme} from 'react-native-paper';
-
+import {scale} from 'react-native-size-matters';
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import TextStyles from '../../themes/TextStyles';
-import CustomText from '../CustomText';
+import ThemedText from '../CustomText/CustomText';
 
 const BlurCard = ({containerStyle, theme, item, index, onPress = () => {}}) => {
   const {title, imageSource} = item;
@@ -25,7 +24,7 @@ const BlurCard = ({containerStyle, theme, item, index, onPress = () => {}}) => {
         <View style={[styles.bgView, {backgroundColor: theme.dark ? 'black' : 'white'}]} />
       )}
       <FastImage style={styles.image} source={imageSource} resizeMode="contain" />
-      <CustomText style={styles.title}>{title}</CustomText>
+      <ThemedText style={styles.title}>{title}</ThemedText>
     </TouchableBounce>
   );
 };

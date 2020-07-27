@@ -1,9 +1,10 @@
 import React from 'react';
 import {FastImageSource} from 'react-native-fast-image';
 import {FlatList} from 'react-native-gesture-handler';
+import {NavigationStackProp} from 'react-navigation-stack';
 import Container from '../../components/Container';
 import LinearGradientCard from '../../components/LinearGradientCard/LinearGradientCard';
-import {SCREEN_STACK_ROUTE_NAME} from '../../navigation';
+import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/constants';
 
 export interface ShowcaseDataItemProps {
   title: string;
@@ -11,7 +12,7 @@ export interface ShowcaseDataItemProps {
   colors: Array<any>;
 }
 
-interface FlatlistItemProps {
+interface FlatListItemProps {
   item: ShowcaseDataItemProps;
   index: number;
 }
@@ -30,7 +31,7 @@ const DATA: Array<ShowcaseDataItemProps> = [
 ];
 
 interface ShowcaseScreenProps {
-  navigation: any;
+  navigation: NavigationStackProp;
 }
 
 const ShowcaseScreen: React.FC<ShowcaseScreenProps> = ({navigation}) => {
@@ -38,7 +39,7 @@ const ShowcaseScreen: React.FC<ShowcaseScreenProps> = ({navigation}) => {
     navigation.navigate(SCREEN_STACK_ROUTE_NAME.ShowcaseWrapper, {item: {...item}});
   };
 
-  const renderItem = ({item, index}: FlatlistItemProps) => (
+  const renderItem = ({item, index}: FlatListItemProps) => (
     <LinearGradientCard
       key={`${item.title}-${index}`}
       containerStyle={{marginLeft: 12, marginRight: 12, marginTop: 14}}

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import {NavigationStackProp} from 'react-navigation-stack';
 import Container from '../../components/Container';
-import CustomText from '../../components/CustomText';
+import ThemedText from '../../components/CustomText/CustomText';
 import {ShowcaseDataItemProps} from './ShowcaseScreen';
 
 interface ScreenProps {
-  navigation: any;
-  route: any;
+  navigation: NavigationStackProp;
 }
 
 const ShowcaseWrapperScreen: React.FC<ScreenProps> = ({navigation}) => {
@@ -13,7 +13,7 @@ const ShowcaseWrapperScreen: React.FC<ScreenProps> = ({navigation}) => {
 
   return (
     <Container>
-      <CustomText>{item.title}</CustomText>
+      <ThemedText>{item.title}</ThemedText>
     </Container>
   );
 };

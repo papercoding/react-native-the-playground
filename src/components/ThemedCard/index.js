@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import {scale} from 'react-native-size-matters';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {Spacing} from '../../themes';
+import {getThemeMode} from '../../themes/Colors/Colors';
 import TextStyles from '../../themes/TextStyles';
-import {getThemeMode} from '../../themes/Colors';
-import {scale} from 'react-native-size-matters';
 
 const ThemedCard = ({cardContainerStyle, title, themeMode, isActive, onPress}) => {
   const cardContainerBackground = {backgroundColor: getThemeMode(themeMode).colors.cardColor};

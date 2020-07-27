@@ -1,5 +1,5 @@
 import {DefaultTheme} from 'react-native-paper';
-
+import {IThemeMode} from './types';
 /**
  A theme usually contains the following properties:
     dark (boolean): whether this is a dark theme or light theme.
@@ -39,7 +39,7 @@ const BaseMode = {
   },
 };
 
-export function getThemeMode(theme) {
+export function getThemeMode(theme: string | null): IThemeMode {
   return {
     ...DefaultTheme,
     dark: theme === 'dark' ? true : false,

@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import BlurCard from '../../components/BlurCard';
 import Container from '../../components/Container';
 import {AppContext} from '../../context';
-import {SCREEN_STACK_ROUTE_NAME} from '../../navigation';
+import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/constants';
 import {fetchNotifications} from '../../redux/actions/notifications';
 import {commonStyles, SCREEN_WIDTH} from '../../themes';
 import {LIST_HOME_ITEM} from './data';
@@ -21,7 +21,7 @@ class HomeScreen extends Component {
     header: null,
   };
 
-  constructor(props) {
+  constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0.1),
@@ -52,7 +52,7 @@ class HomeScreen extends Component {
 
   handleScrollEvent = () => {};
 
-  onBlurItemPress = item => {
+  onBlurItemPress = (item: {id: any}) => {
     switch (item.id) {
       case 'UIConcepts':
         break;
@@ -153,7 +153,7 @@ class HomeScreen extends Component {
           useNativeDriver: true,
           listener: this.handleScrollEvent,
         })}
-        extraData={item => item.id}
+        extraData={(item: {id: any}) => item.id}
       />
     );
   };
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: (arg0: (dispatch: any) => Promise<any>) => any) => ({
   fetchNotifications: () => dispatch(fetchNotifications()),
 });
 

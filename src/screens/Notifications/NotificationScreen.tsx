@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Container from '../../components/Container';
-import CustomText from '../../components/CustomText';
+import ThemedText from '../../components/CustomText/CustomText';
 import TextStyles from '../../themes/TextStyles';
 
 export class NotificationsScreen extends Component {
@@ -13,7 +13,7 @@ export class NotificationsScreen extends Component {
   render() {
     return (
       <Container containerStyle={{justifyContent: 'center', alignItems: 'center'}}>
-        <CustomText style={TextStyles.headline}>{'This feature is developing'}</CustomText>
+        <ThemedText style={TextStyles.headline}>{'This feature is developing'}</ThemedText>
       </Container>
     );
   }

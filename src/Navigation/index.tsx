@@ -6,8 +6,6 @@ import MyCustomBottomTabBar, {
   TabBarIconWithBadge,
 } from '../components/BottomTabBar/MyCustomBottomTabBar';
 import DeveloperScreen from '../screens/Developer';
-import {PlaygroundScreen} from '../screens/Developer/Playground';
-import HaveFunScreen from '../screens/HaveFun/HaveFunScreen';
 import HomeScreen from '../screens/Home';
 import DemoModal from '../screens/Modals/DemoModal';
 import NotificationsScreen from '../screens/Notifications';
@@ -16,31 +14,12 @@ import ShowcaseScreen from '../screens/Showcase/ShowcaseScreen';
 import ShowcaseWrapperScreen from '../screens/Showcase/ShowcaseWrapperScreen';
 import UIConceptsScreen from '../screens/UIConcepts/UIConceptsScreen';
 import TextStyles from '../themes/TextStyles';
-
-const SHOW_TAB_BAR_LABEL = true;
-
-const SCREEN_STACK_ROUTE_NAME = {
-  Home: 'Home',
-  Notifications: 'Notifications',
-  Settings: 'Settings',
-  Developer: 'Developer',
-  Playground: 'Playground',
-  ListDemo: 'ListDemo',
-  UIConcepts: 'UIConcepts',
-  HaveFun: 'HaveFun',
-  Showcase: 'Showcase',
-  ShowcaseWrapper: 'ShowcaseWrapper',
-};
-
-const BOTTOM_TAB_ROUTE_NAME = {
-  HomeTab: 'HomeTab',
-  NotificationsTab: 'NotificationsTab',
-  SettingsTab: 'SettingsTab',
-};
-
-const MODAL_ROUTE_NAME = {
-  DemoModal: 'DemoModal',
-};
+import {
+  BOTTOM_TAB_ROUTE_NAME,
+  MODAL_ROUTE_NAME,
+  SCREEN_STACK_ROUTE_NAME,
+  SHOW_TAB_BAR_LABEL,
+} from './constants';
 
 const HomeStackNavigator = createStackNavigator(
   {
@@ -51,22 +30,10 @@ const HomeStackNavigator = createStackNavigator(
         title: 'Developer',
       },
     },
-    [SCREEN_STACK_ROUTE_NAME.Playground]: {
-      screen: PlaygroundScreen,
-      navigationOptions: {
-        title: 'The Playground',
-      },
-    },
     [SCREEN_STACK_ROUTE_NAME.UIConcepts]: {
       screen: UIConceptsScreen,
       navigationOptions: {
         title: 'UI Concepts',
-      },
-    },
-    [SCREEN_STACK_ROUTE_NAME.HaveFun]: {
-      screen: HaveFunScreen,
-      navigationOptions: {
-        title: 'Have Fun',
       },
     },
     [SCREEN_STACK_ROUTE_NAME.Showcase]: {
@@ -193,5 +160,4 @@ const RootNavigator = createStackNavigator(
 
 const Navigation = createAppContainer(RootNavigator);
 
-export {SCREEN_STACK_ROUTE_NAME, MODAL_ROUTE_NAME, BOTTOM_TAB_ROUTE_NAME};
 export default Navigation;

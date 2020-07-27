@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/index';
 import {SCREEN_WIDTH, Spacing} from '../../themes';
 import TextStyles from '../../themes/TextStyles';
-import CustomText from '../CustomText';
+import ThemedText from '../CustomText/CustomText';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;
@@ -169,9 +169,9 @@ function MyCustomBottomTabBar(props) {
               }}
               accessibilityLabel={getAccessibilityLabel({route})}>
               {renderIcon({route, focused: isRouteActive, tintColor})}
-              <CustomText style={[styles.bottomLabel, {color: tintColor}]}>
+              <ThemedText style={[styles.bottomLabel, {color: tintColor}]}>
                 {getLabelText({route})}
-              </CustomText>
+              </ThemedText>
             </TouchableBounce>
           );
         })}

@@ -1,9 +1,8 @@
+import AsyncStorage from '@react-native-community/async-storage';
+import {NativeModules} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import Reactotron from 'reactotron-react-native';
 import {reactotronRedux as reduxPlugin} from 'reactotron-redux';
-import DeviceInfo from 'react-native-device-info';
-import {NativeModules} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-
 import {appConfigs} from './Configs';
 
 console.disableYellowBox = true;
@@ -36,8 +35,6 @@ if (appConfigs.enableLog) {
   }
 }
 
-Reactotron.onCustomCommand('test', () =>
-  console.tron.log('This is an example'),
-);
+Reactotron.onCustomCommand('test', () => console.tron.log('This is an example'));
 
 console.tron = Reactotron;

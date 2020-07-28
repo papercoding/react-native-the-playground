@@ -2,14 +2,15 @@
  * @format
  */
 
-import './src/configs/ReactotronConfig';
 import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
 import App from './src/App';
-import Config from 'react-native-config';
+import './src/configs/ReactotronConfig';
 
-if (__DEV__) {
-  console.tron.log(Config.ENV);
-}
+import storybook from './storybook';
+import SplashScreen from 'react-native-splash-screen';
 
-AppRegistry.registerComponent(appName, () => App);
+
+SplashScreen.hide();
+
+AppRegistry.registerComponent(appName, () => storybook);

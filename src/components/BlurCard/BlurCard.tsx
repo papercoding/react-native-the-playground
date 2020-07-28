@@ -8,20 +8,21 @@ import TouchableBounce from 'react-native/Libraries/Components/Touchable/Touchab
 import {IThemeMode} from '../../themes/Colors/types';
 import TextStyles from '../../themes/TextStyles';
 import ThemedText from '../CustomText/CustomText';
+import {HandlerFunction} from '@storybook/addon-actions';
 
 type Props = {
   containerStyle: object;
   theme: IThemeMode;
   title: string;
   imageSource: number | FastImageSource;
-  onPress: () => void;
+  onPress?: () => void | HandlerFunction;
 };
 
 const BlurCard: React.FC<Props> = ({containerStyle, theme, title, imageSource, onPress}) => {
   const blurType = theme.dark ? 'dark' : 'light';
 
   const onBlurItemPress = () => {
-    onPress();
+    onPress && onPress();
   };
 
   return (

@@ -7,10 +7,10 @@ import {scale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {connect} from 'react-redux';
-import {SCREEN_STACK_ROUTE_NAME} from '../../navigation/index';
+import ThemedText from '../../components/CustomText/CustomText';
 import {SCREEN_WIDTH, Spacing} from '../../themes';
 import TextStyles from '../../themes/TextStyles';
-import ThemedText from '../CustomText/CustomText';
+import {SCREEN_STACK_ROUTE_NAME} from '../constants';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;

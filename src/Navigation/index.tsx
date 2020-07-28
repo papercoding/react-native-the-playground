@@ -2,9 +2,6 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import MyCustomBottomTabBar, {
-  TabBarIconWithBadge,
-} from '../components/BottomTabBar/MyCustomBottomTabBar';
 import DeveloperScreen from '../screens/Developer';
 import HomeScreen from '../screens/Home';
 import DemoModal from '../screens/Modals/DemoModal';
@@ -14,6 +11,7 @@ import ShowcaseScreen from '../screens/Showcase/ShowcaseScreen';
 import ShowcaseWrapperScreen from '../screens/Showcase/ShowcaseWrapperScreen';
 import UIConceptsScreen from '../screens/UIConcepts/UIConceptsScreen';
 import TextStyles from '../themes/TextStyles';
+import MyCustomBottomTabBar, {TabBarIconWithBadge} from './BottomTabBar/MyCustomBottomTabBar';
 import {
   BOTTOM_TAB_ROUTE_NAME,
   MODAL_ROUTE_NAME,

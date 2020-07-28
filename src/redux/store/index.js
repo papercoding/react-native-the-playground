@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import Reactotron from 'reactotron-react-native';
-import {combineReducers} from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
 import {
   FLUSH,
   PAUSE,
@@ -10,7 +9,7 @@ import {
   persistStore,
   PURGE,
   REGISTER,
-  REHYDRATE,
+  REHYDRATE
 } from 'redux-persist';
 import * as rootReducer from '../reducers';
 
@@ -26,15 +25,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
-// An old way to config redux store
-// const store = createStore(
-//   persistedReducer,
-//   compose(
-//     applyMiddleware(thunk),
-//     Reactotron.createEnhancer(),
-//   ),
-// );
-
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware({
@@ -42,9 +32,9 @@ const store = configureStore({
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  enhancers: [Reactotron.createEnhancer()],
 });
 
 const persistor = persistStore(store);
 
-export {store, persistor};
+export { store, persistor };
+

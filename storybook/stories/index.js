@@ -8,7 +8,7 @@ import {linkTo} from '@storybook/addon-links';
 import Button from './Button';
 import CenterView from './CenterView';
 import Welcome from './Welcome';
-import storiesOfBlurCard from '../../src/components/BlurCard/BlurCard.stories';
+import BlurCard from '../../src/components/BlurCard/BlurCard';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -25,4 +25,16 @@ storiesOf('Button', module)
     </Button>
   ));
 
-// storiesOfBlurCard();
+// -------------------------------------------------------------------------------------
+// Blur Card
+// -------------------------------------------------------------------------------------
+storiesOf('BlurCard', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('with text', () => (
+    <BlurCard
+      containerStyle={{width: 300, height: 300}}
+      title="Simple"
+      imageSource={require('../../src/assets/images/ic_helicopter.png')}
+      onPress={action('BlurCard press')}
+    />
+  ));

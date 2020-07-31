@@ -12,7 +12,7 @@ import {HandlerFunction} from '@storybook/addon-actions';
 
 type Props = {
   containerStyle: object;
-  theme: IThemeMode;
+  theme?: IThemeMode;
   title: string;
   imageSource: number | FastImageSource;
   onPress?: () => void | HandlerFunction;

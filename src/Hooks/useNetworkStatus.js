@@ -7,13 +7,11 @@ const useNetworkStatus = () => {
   const isConnected = useNetworkState();
 
   useEffect(() => {
-    setTimeout(() => {
+    if (skipForTheFirstTime) {
       skipForTheFirstTime.current = false;
-    }, 7000);
-  }, []);
-
-  useEffect(() => {
-    previousConnection.current = isConnected;
+    } else {
+      previousConnection.current = isConnected;
+    }
   }, [isConnected]);
 
   return isConnected === null ||

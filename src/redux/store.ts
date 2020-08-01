@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {combineReducers} from 'redux';
 import {
   FLUSH,
   PAUSE,
@@ -9,9 +9,9 @@ import {
   persistStore,
   PURGE,
   REGISTER,
-  REHYDRATE
+  REHYDRATE,
 } from 'redux-persist';
-import * as rootReducer from '../reducers';
+import * as rootReducer from './reducers';
 
 const combinedReducer = combineReducers(rootReducer);
 const persistConfig = {
@@ -36,5 +36,4 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export { store, persistor };
-
+export {store, persistor};

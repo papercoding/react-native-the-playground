@@ -1,18 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {Platform, StatusBar, View} from 'react-native';
-import DropdownAlert from 'react-native-dropdownalert';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {AppConsumer, AppContextProvider} from './context';
-import useDropdownAlertNetwork from './hooks/useDropdownAlertNetwork';
 import Navigation from './navigation';
 import {persistor, store} from './redux/store';
+import NetworkDropdownAlert from './components/NetworkDropdownAlert';
 
 const App = () => {
-  const refDropdownAlert = useRef(null);
-  useDropdownAlertNetwork(refDropdownAlert);
-
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -29,11 +25,8 @@ const App = () => {
                   backgroundColor={appConsumer.theme.colors.defaultStatusBar}
                 />
                 <Navigation screenProps={{theme: appConsumer.theme}} />
-                <DropdownAlert
-                  ref={refDropdownAlert}
-                  closeInterval={1000}
-                  elevation={3}
-                  useNativeDriver
+                <NetworkDropdownAlert
+                  closeInterval={3000}
                   onClose={() => {
                     if (Platform.OS === 'android') {
                       StatusBar.setBackgroundColor(appConsumer.theme.colors.defaultStatusBar, true);

@@ -41,6 +41,7 @@
 		38E0B5D376AE4F0FABD40A4B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D1BA228594544978626DB35 /* Ionicons.ttf */; };
 		40A096EE69724530822254C2 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91DB461734A64D7292E4CA32 /* Roboto-Medium.ttf */; };
 		45CA248557664752A5BAC413 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5507D6EC1BCD4CF084E25B0B /* Feather.ttf */; };
+		4B748DB124D5D72D0053E2AD /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B748DB024D5D72D0053E2AD /* File.swift */; };
 		5B7A5232D4314505863BCEE1 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 988B56A763EA48888A30457D /* Entypo.ttf */; };
 		5D743C6743414B818098BE3B /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92E1DE993C814B4BB9E229C1 /* Zocial.ttf */; };
 		6196DEEA459C42D7BA156ACF /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35C2C198A504456A862E9006 /* Roboto-Italic.ttf */; };
@@ -125,6 +126,8 @@
 		354DB83BADED4139A22A4C7E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		35C2C198A504456A862E9006 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		4B41CED1958A42F39182250E /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../src/assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		4B748DAF24D5D72D0053E2AD /* ThePlayground-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThePlayground-Bridging-Header.h"; sourceTree = "<group>"; };
+		4B748DB024D5D72D0053E2AD /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4C1DAFB4E7BA4B2DB0F7CBBA /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		4D6AB847BE8A4A0483CF54FD /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		5507D6EC1BCD4CF084E25B0B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -326,6 +329,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4B748DB024D5D72D0053E2AD /* File.swift */,
 				33E7CF212385B7AD0072FCFD /* Fonts */,
 				13B07FAE1A68108700A75B9A /* ThePlayground */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -334,6 +338,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				29119CB9B8C8398A9CC6C846 /* Pods */,
 				1AABDF76DF0E41ECAAC439AA /* Resources */,
+				4B748DAF24D5D72D0053E2AD /* ThePlayground-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 94W33R2RSR;
+						LastSwiftMigration = 1150;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -782,6 +788,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				4B748DB124D5D72D0053E2AD /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,6 +842,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B750E96CE892F7871BF8B0D /* Pods-ThePlaygroundTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = 94W33R2RSR;
@@ -860,6 +868,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 894E00D39033CA93D834809B /* Pods-ThePlaygroundTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
@@ -883,6 +892,7 @@
 			baseConfigurationReference = 5936D0077BC7026742169E14 /* Pods-ThePlayground.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -898,6 +908,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = coding.paper.twentytwo;
 				PRODUCT_NAME = ThePlayground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ThePlayground-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -907,6 +920,7 @@
 			baseConfigurationReference = 122A4FF0D80F9E4B4B219631 /* Pods-ThePlayground.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -921,6 +935,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = coding.paper.twentytwo;
 				PRODUCT_NAME = ThePlayground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ThePlayground-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

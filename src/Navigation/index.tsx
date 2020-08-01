@@ -1,7 +1,10 @@
 import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+import {Transition} from 'react-native-reanimated';
+
 import DeveloperScreen from '../screens/Developer';
 import HomeScreen from '../screens/Home';
 import DemoModal from '../screens/Modals/DemoModal';
@@ -163,7 +166,7 @@ const UnauthorizedNavigator = createStackNavigator({
   Login: LoginScreen,
 });
 
-const SwitchNavigator = createSwitchNavigator(
+const SwitchNavigator = createAnimatedSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     UnauthorizedRoute: UnauthorizedNavigator,
@@ -171,6 +174,12 @@ const SwitchNavigator = createSwitchNavigator(
   },
   {
     initialRouteName: 'AuthLoading',
+    transition: (
+      <Transition.Together>
+        <Transition.Out type="slide-bottom" durationMs={400} interpolation="easeIn" />
+        <Transition.In type="fade" durationMs={500} />
+      </Transition.Together>
+    ),
   },
 );
 

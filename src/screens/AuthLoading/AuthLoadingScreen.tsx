@@ -9,7 +9,7 @@ const AuthLoadingScreen: React.FC<IProp> = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('AuthorizedRoute');
-    }, 6000);
+    }, 3000);
   }, [navigation]);
 
   return (

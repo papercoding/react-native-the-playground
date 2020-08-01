@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TabBarIcon = ({tintColor, name, badgeCount = 0}) => {
+export const TabBarIcon = ({tintColor = 'orange', name = '', badgeCount = 0}) => {
   let iconName;
   switch (name) {
     case 'home':

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Animated, FlatList, Platform, StatusBar, StyleSheet} from 'react-native';
+import {Animated, FlatList, Platform, StyleSheet} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {NavigationEventSubscription, SafeAreaView} from 'react-navigation';
 import {NavigationStackProp} from 'react-navigation-stack';
@@ -44,17 +44,6 @@ class HomeScreen extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchNotifications();
-    this.navigationListener = this.props.navigation.addListener('didFocus', () => {
-      Platform.OS === 'android' && StatusBar.setBackgroundColor('transparent', true);
-      Platform.OS === 'android' && StatusBar.setTranslucent(true);
-    });
-    this.navigationListener = this.props.navigation.addListener('willBlur', () => {
-      const {theme} = this.context;
-      Platform.OS === 'android' &&
-        StatusBar.setBarStyle(theme.dark ? 'light-content' : 'dark-content');
-      Platform.OS === 'android' && StatusBar.setBackgroundColor(theme.colors.defaultStatusBar);
-      Platform.OS === 'android' && StatusBar.setTranslucent(false);
-    });
   }
 
   componentWillUnmount() {

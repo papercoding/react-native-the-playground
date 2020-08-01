@@ -4,6 +4,7 @@ import {Platform, StyleSheet, View} from 'react-native';
 import FastImage, {FastImageSource} from 'react-native-fast-image';
 import {withTheme} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
+//@ts-ignore
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {IThemeMode} from '../../themes/Colors/types';
 import TextStyles from '../../themes/TextStyles';

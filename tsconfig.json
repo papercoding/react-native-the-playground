@@ -69,6 +69,7 @@
     "storybook/*",
     "metro.config.js",
     "react-native.config.js",
-    "rn-cli.config.js"
+    "rn-cli.config.js",
+    "*.js"
   ]
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import DeveloperScreen from '../screens/Developer';
@@ -18,6 +18,8 @@ import {
   SCREEN_STACK_ROUTE_NAME,
   SHOW_TAB_BAR_LABEL,
 } from './constants';
+import LoginScreen from '../screens/Login';
+import AuthLoadingScreen from '../screens/AuthLoading';
 
 const HomeStackNavigator = createStackNavigator(
   {
@@ -156,6 +158,22 @@ const RootNavigator = createStackNavigator(
   },
 );
 
-const Navigation = createAppContainer(RootNavigator);
+// Unauthorized stacks
+const UnauthorizedNavigator = createStackNavigator({
+  Login: LoginScreen,
+});
+
+const SwitchNavigator = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    UnauthorizedRoute: UnauthorizedNavigator,
+    AuthorizedRoute: RootNavigator,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  },
+);
+
+const Navigation = createAppContainer(SwitchNavigator);
 
 export default Navigation;

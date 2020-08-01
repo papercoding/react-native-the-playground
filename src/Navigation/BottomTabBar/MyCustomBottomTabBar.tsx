@@ -28,7 +28,7 @@ const SpotLight = posed.View({
 });
 
 const AnimatedTabBar = posed.View({
-  slideOutDown: {y: scale(58), transition: {y: {type: 'spring'}}},
+  slideOutDown: {y: isIphoneX() ? scale(64) : scale(58), transition: {y: {type: 'spring'}}},
   slideInUp: {y: scale(0), transition: {y: {type: 'spring'}}},
 });
 

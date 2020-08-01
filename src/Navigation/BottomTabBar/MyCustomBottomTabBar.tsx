@@ -4,13 +4,19 @@ import {StyleSheet, Text, View} from 'react-native';
 import {withTheme} from 'react-native-paper';
 import posed from 'react-native-pose';
 import {scale} from 'react-native-size-matters';
+//@ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+//@ts-ignore
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {connect} from 'react-redux';
 import ThemedText from '../../components/CustomText/CustomText';
 import {SCREEN_WIDTH, Spacing} from '../../themes';
 import TextStyles from '../../themes/TextStyles';
 import {SCREEN_STACK_ROUTE_NAME} from '../constants';
+import {isIphoneX} from '../../utils/helpers';
+import {NavigationRoute} from 'react-navigation';
+import {IThemeMode} from '../../themes/Colors/types';
+import {NavigationTabProp} from 'react-navigation-tabs';
 
 const windowWidth = SCREEN_WIDTH;
 const tabWidth = windowWidth / 3 / 2;
@@ -27,7 +33,12 @@ const AnimatedTabBar = posed.View({
 });
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', height: scale(58), elevation: 2},
+  container: {
+    flexDirection: 'row',
+    height: isIphoneX() ? scale(64) : scale(58),
+    paddingBottom: isIphoneX() ? scale(18) : 0,
+    elevation: 2,
+  },
   tabButton: {flex: 1, justifyContent: 'center', alignItems: 'center'},
   sportLight: {
     width: tabWidth,
@@ -101,12 +112,41 @@ export const TabBarIcon = ({tintColor, name, badgeCount = 0}) => {
 // Redux integration
 export const TabBarIconWithBadge = connect(state => ({badgeCount: state.badgeCount}))(TabBarIcon);
 
-function MyCustomBottomTabBar(props) {
+interface IProps {
+  getLabelText: (props: {
+    route: NavigationRoute;
+  }) =>
+    | ((scene: {
+        focused: boolean;
+        tintColor?: string;
+        orientation?: 'horizontal' | 'vertical';
+      }) => string | undefined)
+    | string
+    | undefined;
+  theme: IThemeMode;
+  renderIcon: (props: {
+    route: NavigationRoute;
+    focused: boolean;
+    tintColor?: string;
+    horizontal?: boolean;
+  }) => React.ReactNode;
+  onTabPress: (props: {route: NavigationRoute}) => void;
+  getAccessibilityLabel: (props: {route: NavigationRoute}) => string | undefined;
+  navigation: NavigationTabProp;
+}
+
+function MyCustomBottomTabBar({
+  renderIcon,
+  getLabelText,
+  onTabPress,
+  getAccessibilityLabel,
+  navigation,
+  theme,
+}: IProps) {
   const [toastMessage, setToastMessage] = useState('');
   const [isShownToast, setIsShownToast] = useState(false);
   const [countHomeTabClick, setCountHomeTabClick] = useState(0);
   // Props
-  const {renderIcon, getLabelText, onTabPress, getAccessibilityLabel, navigation, theme} = props;
   const {colors} = theme;
   // Extract data
   const {routes, index: activeRouteIndex} = navigation.state;
